@@ -70,7 +70,7 @@ export const MobileHeader: FC = () => {
       {
         list.map((item) => 
         <ListItemStyled key={item.link}>
-          <Link to={item.link}>{item.text}</Link>
+          <Link to={item.link} onClick={(): void => setOpen(false)}>{item.text}</Link>
         </ListItemStyled>)
       }
     </ListStyled>)
