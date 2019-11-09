@@ -6,13 +6,13 @@ import { FormHeader } from '../../../ui-kit/Form/FormHeader/FormHeader.component
 import { FormButton } from '../../../ui-kit/Form/FormButton/FormButton.component';
 import styled from '@emotion/styled/macro';
 
-
 // #region styled
 const FormStyled = styled.form`
-  width: 500px;
   background: #fff;
   padding: 25px;
   border-radius: 10px;
+  max-width: 500px;
+  width: 100%;
 `;
 // #endregion
 
