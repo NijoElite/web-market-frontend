@@ -1,5 +1,5 @@
 import styled from "@emotion/styled/macro";
-import { mediaMd } from "../utils/css.utils";
+import { mediaMd } from "../../utils/css.utils";
 
 
 export const Page = styled.div`

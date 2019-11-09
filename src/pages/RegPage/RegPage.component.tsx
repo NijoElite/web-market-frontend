@@ -1,11 +1,11 @@
 import styled from '@emotion/styled/macro';
 import React, { FC } from 'react';
-import { LoginForm } from '../../components/Forms/LoginForm/LoginForm.component';
+import { RegForm } from '../../components/Forms/RegForm/RegForm.component';
 
 import { Container } from '../../ui-kit/Container/Container.component';
 
 // #region styled
-const LoginPageStyled = styled.div`
+const RegPageStyled = styled.div`
   margin-top: 60px;
   display: flex;
   justify-content: center;
@@ -14,12 +14,12 @@ const LoginPageStyled = styled.div`
 `;
 // #endregion
 
-export const LoginPage: FC = () => {
+export const RegPage: FC = () => {
   return (
     <Container>
-      <LoginPageStyled>
-        <LoginForm onSubmit={(values): void =>{console.log(values)}}/>
-      </LoginPageStyled>  
+      <RegPageStyled>
+        <RegForm onSubmit={(values): void =>{console.log(values)}}/>
+      </RegPageStyled>
     </Container>
   );
 }
