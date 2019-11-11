@@ -1,3 +1,16 @@
+export interface UserPartialInfo {
+  id: string;
+  firstName: string;
+  lastName: string;
+  secondName: string;
+  phone: string;
+}
+
+export interface UserFullInfo extends UserPartialInfo {
+  birthday: string;
+  email: string;
+}
+
 export interface Product {
   article: string;
   ownerId: string;
@@ -12,18 +25,4 @@ export interface Product {
   defaultImage: string;
   sliderImage: string;
   rating: number;
-}
-
-export interface User {
-  id: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  secondName: string;
-  phone: string;
-}
-
-export interface Order {
-  customerId: string;
-  date: string;
 }

@@ -25,7 +25,7 @@ const RegPageStyled = styled.div`
 
 export const RegPage: FC = () => {
   const [modalState, setModalState] = useState({ show: false, message: '' });
-  const [redirect, setRedirect] = useState(false);
+  const [redirectToLogin, setRedirectToLogin] = useState(false);
 
   const handleClose = (): void => setModalState({ ...modalState, show: false });
 
@@ -49,7 +49,7 @@ export const RegPage: FC = () => {
             .join('\n') as string,
         });
       } else {
-        setRedirect(true);
+        setRedirectToLogin(true);
       }
     } catch (err) {}
   };
@@ -65,7 +65,7 @@ export const RegPage: FC = () => {
             <Button onClick={handleClose}>OK</Button>
           </Modal.Footer>
         </Modal>
-        {redirect && <Redirect to="/login" />}
+        {redirectToLogin && <Redirect to="/login" />}
       </RegPageStyled>
     </Container>
   );

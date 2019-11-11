@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { Header } from './components/Header/Header.component';
 import { MainPage } from './pages/MainPage/MainPage.component';
 import { RegPage } from './pages/RegPage/RegPage.component';
-import { Page } from './components/Page/Page.component';
+import { Page } from './ui-kit/Page/Page.component';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { LoginPage } from './pages/LoginPage/LoginPage.component';
 
 export default class App extends Component {
-  render() {
+  render(): React.ReactNode {
     return (
       <Router>
         <Header />
