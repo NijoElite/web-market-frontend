@@ -1,5 +1,7 @@
 import styled from '@emotion/styled/macro';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 // #region styled
 const LabelStyled = styled.label`
@@ -41,19 +43,45 @@ const InputStyled = styled.input`
   width: 100%;
   border: 2px solid ffc608;
 `;
+
+const BoxStyled = styled.div`
+  display: flex;
+`;
+
+const ShowHideStyled = styled.div`
+  width: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 5px;
+`;
 // #endregion
 
-type InputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
+export type InputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
   isValid?: boolean;
   errorMessage?: string;
   labelText?: string;
 };
 
 export const Input: FC<InputProps> = props => {
+  const { type, ...restProps } = props;
+  const [show, setShow] = useState(type !== 'password');
+
+  const handleShowHideClick = (): void => setShow(!show);
+
+  const showHideBtn = (
+    <ShowHideStyled onClick={handleShowHideClick}>
+      <FontAwesomeIcon icon={show ? faEye : faEyeSlash} />
+    </ShowHideStyled>
+  );
+
   return (
     <InputWrapperStyled isValid={props.isValid} error={props.errorMessage}>
       <LabelStyled htmlFor={props.name}>{props.labelText}</LabelStyled>
-      <InputStyled {...props} />
+      <BoxStyled>
+        <InputStyled type={show ? 'text' : 'password'} {...restProps} />
+        {type === 'password' ? showHideBtn : null}
+      </BoxStyled>
     </InputWrapperStyled>
   );
 };
