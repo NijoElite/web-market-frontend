@@ -1,21 +1,38 @@
-import * as constants from '../Constants';
+import {
+  AddItemInCart,
+  CartItem,
+  CartState,
+  DeleteCartItem,
+  UpdateCartItemQty,
+  ADD_ITEM_IN_CART,
+  DELETE_CART_ITEM,
+  UPDATE_CART_ITEM_QTY,
+} from './types';
 
-// #region action interfaces
-export interface Authenticate {
-  type: constants.AUTHENTICATE;
-  payload: {
-    userId: string;
-  };
-}
-// #endregion
-
-// #region actions
-export const Authenticate = (userId: string): Authenticate => {
+export const addItemInCart = (article: string): AddItemInCart => {
   return {
-    type: constants.AUTHENTICATE,
+    type: ADD_ITEM_IN_CART,
     payload: {
-      userId: userId,
+      artilce: article,
     },
   };
 };
-// #endregion
+
+export const deleteCartItem = (article: string): DeleteCartItem => {
+  return {
+    type: DELETE_CART_ITEM,
+    payload: {
+      artilce: article,
+    },
+  };
+};
+
+export const updateCartItemQty = (article: string, qty: number): UpdateCartItemQty => {
+  return {
+    type: UPDATE_CART_ITEM_QTY,
+    payload: {
+      artilce: article,
+      qty: qty,
+    },
+  };
+};
