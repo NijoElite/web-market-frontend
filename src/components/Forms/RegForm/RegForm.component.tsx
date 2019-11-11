@@ -16,7 +16,7 @@ const FormStyled = styled.form`
 `;
 // #endregion
 
-interface RegFormFields {
+export interface RegFormFields {
   firstName: string;
   secondName: string;
   lastName: string;
@@ -25,7 +25,7 @@ interface RegFormFields {
   password: string;    
 }
 
-interface RegFormErrors {
+export interface RegFormErrors {
   firstName?: string;
   secondName?: string;
   lastName?: string;
@@ -34,7 +34,7 @@ interface RegFormErrors {
   password?: string;    
 }
 
-interface RegFormProps {
+export interface RegFormProps {
   onSubmit(values: RegFormFields): void; 
   className?: string;
 }
@@ -44,12 +44,14 @@ const validate = (values: RegFormFields): RegFormErrors => {
 
   if (!values.email) {
     errors.email = 'Обязательное поле';
-  } else if (!/^\S+@\S+$/.test(values.email)) {
+  } else if (!/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(values.email)) {
     errors.email = 'Неправильный формат';
   }
 
   if (!values.password) {
     errors.password = 'Обязательное поле';
+  } else if (values.password.length < 8) {
+    errors.password = 'Минимум 8 символов';
   }
 
   if (!values.firstName) {
@@ -66,8 +68,8 @@ const validate = (values: RegFormFields): RegFormErrors => {
 
   if (!values.birthday) {
     errors.birthday = 'Обязательное поле';
-  } else if (!/\d{2}-\d{2}-\d{4}/.test(values.birthday)) {
-    errors.birthday = 'Непраивльный формат';
+  } else if (!/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/.test(values.birthday)) {
+    errors.birthday = 'Неправильный формат';
   }
 
   return errors;
@@ -134,7 +136,7 @@ export const RegForm: FC<RegFormProps> = ({className, onSubmit}) => {
         name="birthday"
         type="text"
         placeholder="01-01-1970"
-        labelText="Дата рождения (мм-дд-гггг)"
+        labelText="Дата рождения (YYYY-MM-DD)"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
         value={formik.values.birthday}
