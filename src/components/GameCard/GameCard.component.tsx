@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import {Product} from '../../models/interfaces';
+import { Product } from '../../models/interfaces';
 import { linkColor } from '../../utils/css.utils';
 import styled from '@emotion/styled/macro';
 import { Currency } from '../../ui-kit/Currency/Currency.component';
@@ -30,7 +30,7 @@ const NameStyled = styled.p`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); 
+  transform: translate(-50%, -50%);
   margin: 0;
   transition: all 0.15s linear;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
@@ -60,7 +60,7 @@ const GameCardStyled = styled(Link)`
       opacity: 0.7;
     }
     ${NameStyled} {
-      opacity: 1.0;
+      opacity: 1;
     }
     ${PriceStyled} {
       background: #ffc608;
@@ -74,13 +74,13 @@ interface GameCardProps {
   className?: string;
 }
 
-export const GameCard: FC<GameCardProps> = ({game, className}) => {
+export const GameCard: FC<GameCardProps> = ({ game, className }) => {
   return (
     <GameCardStyled to={'/catalog/' + game.article} className={className}>
-      <ImageStyled src={'' + game.defaultImage} alt=''/>
-      <Hover/>
+      <ImageStyled src={'' + game.defaultImage} alt="" />
+      <Hover />
       <NameStyled>{game.name}</NameStyled>
-      <PriceStyled type='rub'>{game.price}</PriceStyled>
+      <PriceStyled type="rub">{game.price}</PriceStyled>
     </GameCardStyled>
   );
-}
+};

@@ -1,8 +1,8 @@
-import styled from "@emotion/styled/macro";
-import { mediaMd } from "../../../utils/css.utils";
-import React, { FC } from "react";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import styled from '@emotion/styled/macro';
+import { mediaMd } from '../../../utils/css.utils';
+import React, { FC } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 // #region styled
 const StyledInput = styled.input`
@@ -45,12 +45,13 @@ interface SearchFormProps {
   className?: string;
 }
 
-export const SearchForm: FC<SearchFormProps> = ({className}) => {
+export const SearchForm: FC<SearchFormProps> = ({ className }) => {
   return (
-  <SearchFormStyled className={className}>
-    <StyledInput placeholder='Поиск игр...  '/>
-    <SearchButtonStyled>
-      <FontAwesomeIcon icon={faSearch}/>
-    </SearchButtonStyled>
-  </SearchFormStyled>);
-} 
+    <SearchFormStyled className={className}>
+      <StyledInput placeholder="Поиск игр...  " />
+      <SearchButtonStyled>
+        <FontAwesomeIcon icon={faSearch} />
+      </SearchButtonStyled>
+    </SearchFormStyled>
+  );
+};

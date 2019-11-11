@@ -24,8 +24,12 @@ export const LoginPage: FC = () => {
   return (
     <Container>
       <LoginPageStyled>
-        <LoginForm onSubmit={(values): void =>{console.log(values)}}/>
-      </LoginPageStyled>  
+        <LoginForm
+          onSubmit={(values): void => {
+            console.log(values);
+          }}
+        />
+      </LoginPageStyled>
     </Container>
   );
-}
+};

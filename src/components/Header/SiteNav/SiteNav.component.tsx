@@ -1,8 +1,8 @@
-import React, { FC } from "react";
-import styled from "@emotion/styled/macro";
-import { mediaMd, linkColor, transition } from "../../../utils/css.utils";
-import { SiteNavData } from "../HeaderData";
-import { Container } from "../../../ui-kit/Container/Container.component";
+import React, { FC } from 'react';
+import styled from '@emotion/styled/macro';
+import { mediaMd, linkColor, transition } from '../../../utils/css.utils';
+import { SiteNavData } from '../HeaderData';
+import { Container } from '../../../ui-kit/Container/Container.component';
 import { Link } from 'react-router-dom';
 
 // #region styled
@@ -52,19 +52,17 @@ interface SiteNavProps {
   className?: string;
 }
 
-export const SiteNav: FC<SiteNavProps> = ({className}) => {
-  const items = SiteNavData.map((el) => (
+export const SiteNav: FC<SiteNavProps> = ({ className }) => {
+  const items = SiteNavData.map(el => (
     <ListItemStyled key={el.link}>
-     <LinkStyled to={el.link}>{el.text}</LinkStyled>
-    </ListItemStyled>)
-    );
+      <LinkStyled to={el.link}>{el.text}</LinkStyled>
+    </ListItemStyled>
+  ));
 
   return (
     <NavStyled className={className}>
       <Container>
-        <ListStyled>
-          {items}
-        </ListStyled>
+        <ListStyled>{items}</ListStyled>
       </Container>
     </NavStyled>
   );

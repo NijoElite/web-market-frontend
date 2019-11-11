@@ -2,11 +2,11 @@ import React, { FC, useState } from 'react';
 import styled from '@emotion/styled/macro';
 import { Burger } from '../../../ui-kit/Burger/Burger.component';
 import { linkColor, mediaMd, transition } from '../../../utils/css.utils';
-import {mobileNavData} from '../HeaderData';
+import { mobileNavData } from '../HeaderData';
 import { Link } from 'react-router-dom';
 
 // #region styled
-const HeaderStyled = styled('div')<{open: boolean}>`
+const HeaderStyled = styled('div')<{ open: boolean }>`
   ${transition('all')}
   position: absolute;
   top: 100%;
@@ -16,8 +16,8 @@ const HeaderStyled = styled('div')<{open: boolean}>`
   padding: 15px;
   z-index: 1000;
 
-  visibility: ${({open}): string => open ? 'visible' : 'hidden'};
-  opacity: ${({open}): string => open ? '1' : '0'};
+  visibility: ${({ open }): string => (open ? 'visible' : 'hidden')};
+  opacity: ${({ open }): string => (open ? '1' : '0')};
   justify-content: flex-start;
   flex-wrap: wrap;
 `;
@@ -33,7 +33,7 @@ const ListStyled = styled.ul`
   padding: 0;
 
   &:not(:last-child) {
-    margin-bottom: 30px
+    margin-bottom: 30px;
   }
 `;
 
@@ -66,23 +66,22 @@ export const MobileHeader: FC = () => {
 
   const items = mobileNavData.map((list, i) => {
     return (
-    <ListStyled key={i}>
-      {
-        list.map((item) => 
-        <ListItemStyled key={item.link}>
-          <Link to={item.link} onClick={(): void => setOpen(false)}>{item.text}</Link>
-        </ListItemStyled>)
-      }
-    </ListStyled>)
+      <ListStyled key={i}>
+        {list.map(item => (
+          <ListItemStyled key={item.link}>
+            <Link to={item.link} onClick={(): void => setOpen(false)}>
+              {item.text}
+            </Link>
+          </ListItemStyled>
+        ))}
+      </ListStyled>
+    );
   });
 
   return (
     <MobileHeaderStyled>
-      <BurgerStyled open={open} setOpen={setOpen}/>
-      <HeaderStyled open={open}>
-        {items}
-      </HeaderStyled>
+      <BurgerStyled open={open} setOpen={setOpen} />
+      <HeaderStyled open={open}>{items}</HeaderStyled>
     </MobileHeaderStyled>
   );
 };
-

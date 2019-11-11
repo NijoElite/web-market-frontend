@@ -24,17 +24,17 @@ const RegPageStyled = styled.div`
 // #endregion
 
 export const RegPage: FC = () => {
-  const [modalState, setModalState] = useState({show: false, message: ''});
+  const [modalState, setModalState] = useState({ show: false, message: '' });
   const [redirect, setRedirect] = useState(false);
 
-  const handleClose = (): void => setModalState({...modalState, show: false}); 
+  const handleClose = (): void => setModalState({ ...modalState, show: false });
 
   const handleSubmit = async (values: RegFormFields): Promise<void> => {
     try {
       const response = await fetch('/api/v1/user', {
         method: 'POST',
         headers: {
-          'Content-Type':'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(values),
       });
@@ -44,32 +44,29 @@ export const RegPage: FC = () => {
       if (json.status === 'error') {
         setModalState({
           show: true,
-          message: json.errors.map((err: { name: string; message: string }) => err.name + ' ' + err.message).join('\n') as string
+          message: json.errors
+            .map((err: { name: string; message: string }) => err.name + ' ' + err.message)
+            .join('\n') as string,
         });
       } else {
         setRedirect(true);
       }
-    } catch (err) {
-    }
-  }
+    } catch (err) {}
+  };
 
   return (
     <Container>
       <RegPageStyled>
-        <RegForm onSubmit={handleSubmit}/>
+        <RegForm onSubmit={handleSubmit} />
         <Modal show={modalState.show} onBackClick={handleClose}>
-          <Modal.Title>
-            Ошибка
-          </Modal.Title>
-          <Modal.Body>
-            {modalState.message}
-          </Modal.Body>
+          <Modal.Title>Ошибка</Modal.Title>
+          <Modal.Body>{modalState.message}</Modal.Body>
           <Modal.Footer>
             <Button onClick={handleClose}>OK</Button>
           </Modal.Footer>
         </Modal>
-        {redirect && <Redirect to='/login'/>}
+        {redirect && <Redirect to="/login" />}
       </RegPageStyled>
     </Container>
   );
-}
+};

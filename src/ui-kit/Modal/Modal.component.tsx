@@ -1,4 +1,4 @@
-import React, { FC, Children } from 'react';
+import React, { FC } from 'react';
 import styled from '@emotion/styled/macro';
 import css from '@emotion/css';
 
@@ -11,13 +11,13 @@ const fullscreen = css`
   top: 0;
 `;
 
-const ModalWrapperStyled = styled('div')<{show?: boolean}>`
+const ModalWrapperStyled = styled('div')<{ show?: boolean }>`
   ${fullscreen}
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: ${({show}): string => show ? '1' : '0'};
-  visibility: ${({show}): string => show ? 'visible' : 'hidden'};
+  opacity: ${({ show }): string => (show ? '1' : '0')};
+  visibility: ${({ show }): string => (show ? 'visible' : 'hidden')};
   transition: all linear 0.1s;
   z-index: 1000;
 `;
@@ -34,13 +34,13 @@ const ModalStyled = styled.div`
   z-index: 1000;
 `;
 
-const ModalBackgroundStyled = styled('div')<{show?: boolean; clickable?: boolean}>`
+const ModalBackgroundStyled = styled('div')<{ show?: boolean; clickable?: boolean }>`
   ${fullscreen}
   background: #000;
-  opacity: ${({show}): string => show ? '0.72' : '0'};
-  visibility: ${({show}): string => show ? 'visible' : 'hidden'};
+  opacity: ${({ show }): string => (show ? '0.72' : '0')};
+  visibility: ${({ show }): string => (show ? 'visible' : 'hidden')};
   transition: all linear 0.1s;
-  cursor: ${({clickable}): string => clickable ? 'pointer' : 'auto'};
+  cursor: ${({ clickable }): string => (clickable ? 'pointer' : 'auto')};
 `;
 
 const TitleStyled = styled.div`
@@ -61,42 +61,46 @@ const FooterStyled = styled.div`
   justify-content: flex-end;
 
   & > :not(:last-child) {
-    margin-right: 15px;    
+    margin-right: 15px;
   }
 `;
 // #endregion
 
 interface ModalProps {
-  show?: boolean;  
+  show?: boolean;
   children?: React.ReactNode;
   onBackClick?(event: React.MouseEvent<HTMLDivElement, MouseEvent>): void;
 }
 
-const Title: FC = ({children}) => {
-  return <TitleStyled>{children}</TitleStyled>  
-}
+const Title: FC = ({ children }) => {
+  return <TitleStyled>{children}</TitleStyled>;
+};
 
-const Body: FC = ({children}) => {
-  return <BodyStyled>{children}</BodyStyled>  
-}
+const Body: FC = ({ children }) => {
+  return <BodyStyled>{children}</BodyStyled>;
+};
 
-const Footer: FC = ({children}) => {
-  return <FooterStyled>{children}</FooterStyled>  
-}
+const Footer: FC = ({ children }) => {
+  return <FooterStyled>{children}</FooterStyled>;
+};
 
 export class Modal extends React.Component<ModalProps> {
   static Title = Title;
   static Body = Body;
   static Footer = Footer;
 
-  render(): React.ReactNode { 
+  render(): React.ReactNode {
     return (
-    <React.Fragment>
-      <ModalWrapperStyled show={this.props.show}>
-        <ModalBackgroundStyled show={this.props.show} onClick={this.props.onBackClick} clickable={!!this.props.onBackClick}/>
-        <ModalStyled>{this.props.children}</ModalStyled>
-      </ModalWrapperStyled>
-    </React.Fragment>  
-  )
+      <React.Fragment>
+        <ModalWrapperStyled show={this.props.show}>
+          <ModalBackgroundStyled
+            show={this.props.show}
+            onClick={this.props.onBackClick}
+            clickable={!!this.props.onBackClick}
+          />
+          <ModalStyled>{this.props.children}</ModalStyled>
+        </ModalWrapperStyled>
+      </React.Fragment>
+    );
   }
 }

@@ -21,13 +21,12 @@ const mockData: Product = {
   publisher: '',
   sliderImage: '',
   rating: 5,
-}
+};
 
 const mockCarousel = ['https://cdn.gabestore.ru/category/yZX_l6hOvLAz_3TnSUk5jLr03hcObcAB.jpg'];
 
-
-const Background = styled('div')<{imgUrl: string}>`
-  background-image: url(${({imgUrl}): string => imgUrl});
+const Background = styled('div')<{ imgUrl: string }>`
+  background-image: url(${({ imgUrl }): string => imgUrl});
   background-size: cover;
   background-position: center;
   width: 100%;
@@ -41,17 +40,17 @@ const games = [mockData];
 export const MainPage: FC = () => {
   const items = mockCarousel.map(el => {
     return {
-      item: <Item/>,
-      background: <Background imgUrl={el}/>,
-    }
-   });
+      item: <Item />,
+      background: <Background imgUrl={el} />,
+    };
+  });
 
   return (
     <React.Fragment>
-      <CarouselStyled items={items} options={{delay: 8500}} />
+      <CarouselStyled items={items} options={{ delay: 8500 }} />
       <Container>
-        <Catalog games={games}/>
+        <Catalog games={games} />
       </Container>
     </React.Fragment>
-  );  
-} 
+  );
+};

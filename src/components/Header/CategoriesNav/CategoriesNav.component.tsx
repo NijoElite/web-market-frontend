@@ -1,7 +1,7 @@
-import React, {memo, FC} from 'react';
+import React, { memo, FC } from 'react';
 import styled from '@emotion/styled/macro';
 import { mediaMd, linkReset, transition, linkColor } from '../../../utils/css.utils';
-import {navCategoriesData} from '../HeaderData';
+import { navCategoriesData } from '../HeaderData';
 import { Icon } from '../../../ui-kit/Icon/Icon.component';
 import { Container } from '../../../ui-kit/Container/Container.component';
 import { Link } from 'react-router-dom';
@@ -30,7 +30,7 @@ const CategoryItemStyled = styled(Link)`
   padding: 7px 0 14px 0;
 
   &:hover {
-    background: #ffc608; 
+    background: #ffc608;
   }
 `;
 
@@ -58,10 +58,10 @@ const CatNavWrapperStyled = styled.div`
 `;
 // #endregion
 
-const findCatIcon = (catName: string): {catName: string; unicode: string; displayName: string; fontSize?: string} => {
-  const cat = navCategoriesData.categories.find((el) => el.catName === catName)
+const findCatIcon = (catName: string): { catName: string; unicode: string; displayName: string; fontSize?: string } => {
+  const cat = navCategoriesData.categories.find(el => el.catName === catName);
   return cat || navCategoriesData.defaultCategory;
-}
+};
 
 interface CategoryItemProps {
   catName: string;
@@ -69,31 +69,32 @@ interface CategoryItemProps {
   className?: string;
 }
 
-const CategoryItem: FC<CategoryItemProps> = memo(({className, catName, displayName}) => {
+const CategoryItem: FC<CategoryItemProps> = memo(({ className, catName, displayName }) => {
   const cat = findCatIcon(catName);
   return (
-    <CategoryItemStyled to={'/'+catName} className={className}  >
+    <CategoryItemStyled to={'/' + catName} className={className}>
       <CategoryItemImageStyled>
-        <Icon unicodeChar={cat.unicode} fontSize={cat.fontSize}/>
+        <Icon unicodeChar={cat.unicode} fontSize={cat.fontSize} />
       </CategoryItemImageStyled>
       <CategoryItemTextStyled>{displayName}</CategoryItemTextStyled>
     </CategoryItemStyled>
-  )  
+  );
 });
 
 interface CategoriesNavProps {
   className?: string;
 }
 
-export const CategoriesNav: FC<CategoriesNavProps> = ({className}) => {
+export const CategoriesNav: FC<CategoriesNavProps> = ({ className }) => {
   return (
-    <CatNavWrapperStyled className={className}>  
+    <CatNavWrapperStyled className={className}>
       <Container>
         <NavStyled>
-          {navCategoriesData.categories.map((data) => {
-            return <CategoryItem catName={data.catName} displayName={data.displayName} key={data.catName}/>
+          {navCategoriesData.categories.map(data => {
+            return <CategoryItem catName={data.catName} displayName={data.displayName} key={data.catName} />;
           })}
         </NavStyled>
       </Container>
-    </CatNavWrapperStyled>);
-}
+    </CatNavWrapperStyled>
+  );
+};

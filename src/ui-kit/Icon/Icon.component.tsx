@@ -1,9 +1,9 @@
 import React, { FC, memo } from 'react';
 import css, { SerializedStyles } from '@emotion/css';
-import styled from '@emotion/styled/macro'
+import styled from '@emotion/styled/macro';
 
-const StyledSpan = styled('span')<{unicodeChar: string; fontSize: string}>`
-  ${({unicodeChar, fontSize}): SerializedStyles => {
+const StyledSpan = styled('span')<{ unicodeChar: string; fontSize: string }>`
+  ${({ unicodeChar, fontSize }): SerializedStyles => {
     return css`
       &:before{
         font-family: 'iconic';
@@ -21,7 +21,6 @@ interface IconProps {
   fontSize?: string;
 }
 
-export const Icon: FC<IconProps> = memo(({unicodeChar, className, fontSize = '1em'}) => {
-  return (<StyledSpan className={className} unicodeChar={unicodeChar} fontSize={fontSize}/>)
+export const Icon: FC<IconProps> = memo(({ unicodeChar, className, fontSize = '1em' }) => {
+  return <StyledSpan className={className} unicodeChar={unicodeChar} fontSize={fontSize} />;
 });
-

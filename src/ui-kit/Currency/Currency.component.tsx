@@ -2,9 +2,9 @@ import React, { FC } from 'react';
 import styled from '@emotion/styled/macro';
 
 // #region styled
-const CurrencyStyled = styled('span')<{symbol: string}>`
+const CurrencyStyled = styled('span')<{ symbol: string }>`
   &:after {
-    content: '${({symbol}): string => symbol}';
+    content: '${({ symbol }): string => symbol}';
     display: inline;
   }
 `;
@@ -21,12 +21,13 @@ interface CurrencyMap {
 }
 
 const currencyMap: CurrencyMap = {
-  'rub': '₽',
-}
+  rub: '₽',
+};
 
-export const Currency: FC<CurrencyProps> = ({type, className, children}) => {
+export const Currency: FC<CurrencyProps> = ({ type, className, children }) => {
   return (
     <CurrencyStyled symbol={currencyMap[type]} className={className}>
       {children}
-    </CurrencyStyled>);
-}
+    </CurrencyStyled>
+  );
+};

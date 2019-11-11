@@ -18,16 +18,16 @@ const FormStyled = styled.form`
 
 interface LoginFormFields {
   email: string;
-  password: string; 
+  password: string;
 }
 
 interface LoginFormErrors {
   email?: string;
-  password?: string; 
+  password?: string;
 }
 
 interface LoginFormProps {
-  onSubmit(values: LoginFormFields): void; 
+  onSubmit(values: LoginFormFields): void;
   className?: string;
 }
 
@@ -45,9 +45,9 @@ const validate = (values: LoginFormFields): LoginFormErrors => {
   }
 
   return errors;
-}
+};
 
-export const LoginForm: FC<LoginFormProps> = ({className, onSubmit}) => {
+export const LoginForm: FC<LoginFormProps> = ({ className, onSubmit }) => {
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -88,4 +88,4 @@ export const LoginForm: FC<LoginFormProps> = ({className, onSubmit}) => {
       <FormButton>Войти</FormButton>
     </FormStyled>
   );
-}
+};

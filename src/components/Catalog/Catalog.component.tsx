@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import {Product} from '../../models/interfaces';
+import { Product } from '../../models/interfaces';
 import { mediaMd, mediaLg } from '../../utils/css.utils';
 import styled from '@emotion/styled/macro';
 import { GameCard } from '../GameCard/GameCard.component';
@@ -30,13 +30,14 @@ interface CatalogProps {
   className?: string;
 }
 
-export const Catalog: FC<CatalogProps> = ({games, className}) => {
+export const Catalog: FC<CatalogProps> = ({ games, className }) => {
   return (
     <CatalogStyled className={className}>
       {games.map(game => (
         <ColumnStyled key={game.article}>
-          <GameCard game={game}/>
-        </ColumnStyled>))}
+          <GameCard game={game} />
+        </ColumnStyled>
+      ))}
     </CatalogStyled>
   );
-}
+};

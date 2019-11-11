@@ -22,7 +22,7 @@ export interface RegFormFields {
   lastName: string;
   birthday: string;
   email: string;
-  password: string;    
+  password: string;
 }
 
 export interface RegFormErrors {
@@ -31,11 +31,11 @@ export interface RegFormErrors {
   lastName?: string;
   birthday?: string;
   email?: string;
-  password?: string;    
+  password?: string;
 }
 
 export interface RegFormProps {
-  onSubmit(values: RegFormFields): void; 
+  onSubmit(values: RegFormFields): void;
   className?: string;
 }
 
@@ -73,9 +73,9 @@ const validate = (values: RegFormFields): RegFormErrors => {
   }
 
   return errors;
-}
+};
 
-export const RegForm: FC<RegFormProps> = ({className, onSubmit}) => {
+export const RegForm: FC<RegFormProps> = ({ className, onSubmit }) => {
   const formik = useFormik({
     initialValues: {
       firstName: '',
@@ -83,7 +83,7 @@ export const RegForm: FC<RegFormProps> = ({className, onSubmit}) => {
       lastName: '',
       birthday: '',
       email: '',
-      password: '',     
+      password: '',
     },
     validate,
     onSubmit: onSubmit,
@@ -149,7 +149,7 @@ export const RegForm: FC<RegFormProps> = ({className, onSubmit}) => {
         name="email"
         type="email"
         placeholder="email@example.com"
-        labelText='Email'
+        labelText="Email"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
         value={formik.values.email}
@@ -172,4 +172,4 @@ export const RegForm: FC<RegFormProps> = ({className, onSubmit}) => {
       <FormButton>Зарегистрироваться</FormButton>
     </FormStyled>
   );
-}
+};

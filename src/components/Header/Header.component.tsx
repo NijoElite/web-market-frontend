@@ -1,7 +1,7 @@
-import React, {memo, FC} from 'react';
+import React, { memo, FC } from 'react';
 import styled from '@emotion/styled/macro';
-import {Container} from '../../ui-kit/Container/Container.component';
-import {linkReset, mediaMd} from '../../utils/css.utils';
+import { Container } from '../../ui-kit/Container/Container.component';
+import { linkReset, mediaMd } from '../../utils/css.utils';
 import { MobileHeader } from './MobileHeader/MobileHeader.component';
 import { CategoriesNav } from './CategoriesNav/CategoriesNav.component';
 import { SearchForm } from './SearchForm/SearchForm.component';
@@ -16,11 +16,10 @@ const HeaderStyled = styled.header`
   top: 0;
   z-index: 1000;
   width: 100%;
-  
+
   ${mediaMd} {
     padding-top: 15px;
     position: relative;
-
   }
 `;
 
@@ -35,7 +34,7 @@ const TopHeader = styled.div`
 
 const LogoStyled = styled(Link)`
   ${linkReset}
-  height: 100%; 
+  height: 100%;
   padding: 5px 15px;
   max-height: 130px;
 
@@ -59,31 +58,31 @@ const TopColumnStyled = styled.div`
 
 const Logo: FC = () => {
   return (
-    <LogoStyled to='/'>
-      <img src='/img/logo.png' alt=''/>
+    <LogoStyled to="/">
+      <img src="/img/logo.png" alt="" />
     </LogoStyled>
   );
-}
+};
 
 interface HeaderProps {
   className?: string;
 }
 
-export const Header: FC<HeaderProps> = memo(({className}) => {
+export const Header: FC<HeaderProps> = memo(({ className }) => {
   return (
     <HeaderStyled className={className}>
-      <Container> 
+      <Container>
         <TopHeader>
-          <MobileHeader/>
-          <Logo/>
+          <MobileHeader />
+          <Logo />
           <TopColumnStyled>
-            <UserNav/>
-            <SearchForm/>
+            <UserNav />
+            <SearchForm />
           </TopColumnStyled>
         </TopHeader>
       </Container>
-      <SiteNav/>
-      <CategoriesNav/>
+      <SiteNav />
+      <CategoriesNav />
     </HeaderStyled>
   );
 });

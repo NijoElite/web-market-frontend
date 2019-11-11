@@ -1,7 +1,7 @@
-import React, { FC } from "react";
-import styled from "@emotion/styled/macro";
-import { mediaMd, linkColor } from "../../../utils/css.utils";
-import { UserNavData } from "../HeaderData";
+import React, { FC } from 'react';
+import styled from '@emotion/styled/macro';
+import { mediaMd, linkColor } from '../../../utils/css.utils';
+import { UserNavData } from '../HeaderData';
 import { Link } from 'react-router-dom';
 
 // #region styled
@@ -17,7 +17,7 @@ const UserNavListStyled = styled.ul`
   ${mediaMd} {
     display: flex;
   }
-`; 
+`;
 
 const LinkStyled = styled(Link)`
   ${linkColor('#000')}
@@ -30,16 +30,15 @@ interface UserNavProps {
   className?: string;
 }
 
-export const UserNav: FC<UserNavProps> = ({className}) => {
+export const UserNav: FC<UserNavProps> = ({ className }) => {
   return (
     <nav className={className}>
       <UserNavListStyled>
-        {
-          UserNavData.map((el) => (
-            <li key={el.link}>
-                <LinkStyled to={el.link}>{el.text}</LinkStyled>
-            </li>))
-        }
+        {UserNavData.map(el => (
+          <li key={el.link}>
+            <LinkStyled to={el.link}>{el.text}</LinkStyled>
+          </li>
+        ))}
       </UserNavListStyled>
     </nav>
   );
