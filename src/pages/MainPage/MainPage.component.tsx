@@ -1,4 +1,4 @@
-import { Product } from '../../models/interfaces';
+import { Product } from '../../types/types';
 import { Catalog } from '../../components/Catalog/Catalog.component';
 import { Container } from '../../ui-kit/Container/Container.component';
 import { Carousel } from '../../ui-kit/Carousel/Carousel.component';

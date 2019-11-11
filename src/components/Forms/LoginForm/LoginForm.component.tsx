@@ -16,17 +16,17 @@ const FormStyled = styled.form`
 `;
 // #endregion
 
-interface LoginFormFields {
+export interface LoginFormFields {
   email: string;
   password: string;
 }
 
-interface LoginFormErrors {
+export interface LoginFormErrors {
   email?: string;
   password?: string;
 }
 
-interface LoginFormProps {
+export interface LoginFormProps {
   onSubmit(values: LoginFormFields): void;
   className?: string;
 }

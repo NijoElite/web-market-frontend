@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Product } from '../../models/interfaces';
+import { Product } from '../../types/types';
 import { linkColor } from '../../utils/css.utils';
 import styled from '@emotion/styled/macro';
 import { Currency } from '../../ui-kit/Currency/Currency.component';

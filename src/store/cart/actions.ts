@@ -1,7 +1,5 @@
 import {
   AddItemInCart,
-  CartItem,
-  CartState,
   DeleteCartItem,
   UpdateCartItemQty,
   ADD_ITEM_IN_CART,

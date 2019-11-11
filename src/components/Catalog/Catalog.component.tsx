@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Product } from '../../models/interfaces';
+import { Product } from '../../types/types';
 import { mediaMd, mediaLg } from '../../utils/css.utils';
 import styled from '@emotion/styled/macro';
 import { GameCard } from '../GameCard/GameCard.component';

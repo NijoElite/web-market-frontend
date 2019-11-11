@@ -5,8 +5,9 @@ import { RegForm, RegFormFields } from '../../components/Forms/RegForm/RegForm.c
 import { Container } from '../../ui-kit/Container/Container.component';
 import { mediaMd } from '../../utils/css.utils';
 import { Modal } from '../../ui-kit/Modal/Modal.component';
-import { Redirect } from 'react-router';
+import { Redirect } from 'react-router-dom';
 import { Button } from '../../ui-kit/Button/Button.component';
+import { UserApi } from '../../services/User/UserApi';
 
 // #region styled
 const RegPageStyled = styled.div`
@@ -31,28 +32,27 @@ export const RegPage: FC = () => {
 
   const handleSubmit = async (values: RegFormFields): Promise<void> => {
     try {
-      const response = await fetch('/api/v1/user', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-      });
+      const response = await UserApi.createUser(values);
 
-      const json = await response.json();
-
-      if (json.status === 'error') {
+      if (response.status === 'error') {
         setModalState({
           show: true,
-          message: json.errors
-            .map((err: { name: string; message: string }) => err.name + ' ' + err.message)
-            .join('\n') as string,
+          message: response.errors.map(err => err.name + ' ' + err.message).join('\n'),
         });
       } else {
         setRedirectToLogin(true);
       }
-    } catch (err) {}
+    } catch (err) {
+      setModalState({
+        show: true,
+        message: 'Произошла ошибка при выполнении запроса, повторите попытку :(',
+      });
+    }
   };
+
+  if (redirectToLogin) {
+    return <Redirect to="/login" />;
+  }
 
   return (
     <Container>
@@ -65,7 +65,6 @@ export const RegPage: FC = () => {
             <Button onClick={handleClose}>OK</Button>
           </Modal.Footer>
         </Modal>
-        {redirectToLogin && <Redirect to="/login" />}
       </RegPageStyled>
     </Container>
   );
