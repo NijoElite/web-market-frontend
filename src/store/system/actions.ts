@@ -4,7 +4,6 @@ export const authenticate = (userId: string, jwt: string): types.AuthenticateAct
   return {
     type: types.AUTHENTICATE,
     payload: {
-      userId: userId,
       jwt: jwt,
     },
   };

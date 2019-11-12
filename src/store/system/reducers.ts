@@ -1,8 +1,11 @@
 import { SystemActionTypes, SystemState, AUTHENTICATE } from './types';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 const initialState: SystemState = {
   userId: null,
-  jwt: null,
+  jwt: cookies.get('token') || null,
 };
 
 export const systemReducer = (state = initialState, action: SystemActionTypes): SystemState => {
