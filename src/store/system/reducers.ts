@@ -1,4 +1,11 @@
-import { SystemActionTypes, SystemState, FETCH_TOKEN_BEGIN, FETCH_TOKEN_FAILURE, FETCH_TOKEN_SUCCESS } from './types';
+import {
+  SystemActionTypes,
+  SystemState,
+  FETCH_TOKEN_BEGIN,
+  FETCH_TOKEN_FAILURE,
+  FETCH_TOKEN_SUCCESS,
+  LOGOUT,
+} from './types';
 import jwt from 'jsonwebtoken';
 
 const token = localStorage.getItem('token') || '';
@@ -33,6 +40,13 @@ export const systemReducer = (state = initialState, action: SystemActionTypes): 
         jwt: action.jwt,
         userId: decoded.id || undefined,
         isFetching: false,
+      };
+
+    case LOGOUT:
+      return {
+        ...state,
+        jwt: undefined,
+        userId: undefined,
       };
 
     default:

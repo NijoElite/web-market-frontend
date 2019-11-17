@@ -10,6 +10,8 @@ export interface SystemState {
 export const FETCH_TOKEN_BEGIN = 'FETCH_TOKEN_BEGIN';
 export const FETCH_TOKEN_SUCCESS = 'FETCH_TOKEN_SUCCESS';
 export const FETCH_TOKEN_FAILURE = 'FETCH_TOKEN_FAILURE';
+
+export const LOGOUT = 'LOGOUT';
 // #endregion
 
 // #region Actions
@@ -25,6 +27,10 @@ export interface FetchTokenSuccess {
 export interface FetchTokenFailure {
   type: typeof FETCH_TOKEN_FAILURE;
 }
+
+export interface Logout {
+  type: typeof LOGOUT;
+}
 // #endregion
 
-export type SystemActionTypes = FetchTokenBegin | FetchTokenFailure | FetchTokenSuccess;
+export type SystemActionTypes = FetchTokenBegin | FetchTokenFailure | FetchTokenSuccess | Logout;

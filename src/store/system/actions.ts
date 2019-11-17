@@ -23,6 +23,12 @@ export const fetchFailure = (): types.FetchTokenFailure => {
     type: types.FETCH_TOKEN_FAILURE,
   };
 };
+
+export const logout = (): types.Logout => {
+  return {
+    type: types.LOGOUT,
+  };
+};
 // #endregion
 
 // #region Thunks

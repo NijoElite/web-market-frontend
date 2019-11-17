@@ -7,6 +7,7 @@ import { Page } from './ui-kit/Page/Page.component';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage/LoginPage.component';
 import ErrorModal from './components/ErrorModal/ErrorModal.component';
+import LogoutPage from './pages/LogoutPage/LogoutPage.component';
 
 export default class App extends Component {
   render(): React.ReactNode {
@@ -19,6 +20,7 @@ export default class App extends Component {
             <Route path="/" exact component={MainPage} />
             <Route path="/login" exact component={LoginPage} />
             <Route path="/register" exact component={RegPage} />
+            <Route path="/logout" exact component={LogoutPage} />
           </Switch>
         </Page>
         <ErrorModal />

@@ -4,6 +4,20 @@ export const ANY_AUTH_STATUS = 'ANY_AUTH_STATUS';
 
 export type AuthStatus = typeof IS_AUTHENTICATED | typeof NOT_AUTHENTICATED | typeof ANY_AUTH_STATUS;
 
+export const createAuthPredicate = (isAuthenticated: boolean) => {
+  return (el: NavData): boolean => {
+    if (el.auth === ANY_AUTH_STATUS) {
+      return true;
+    }
+
+    if (isAuthenticated) {
+      return el.auth === IS_AUTHENTICATED;
+    } else {
+      return el.auth === NOT_AUTHENTICATED;
+    }
+  };
+};
+
 export const navCategoriesData = {
   categories: [
     { catName: 'action', unicode: '\\E002', displayName: 'Action', fontSize: '0.75em' },
@@ -30,6 +44,7 @@ export const mobileNavData: NavData[][] = [
     { text: 'Регистрация', link: '/register', auth: NOT_AUTHENTICATED },
 
     { text: 'Личный кабинет', link: '/cabient', auth: IS_AUTHENTICATED },
+    { text: 'Выйти', link: '/logout', auth: IS_AUTHENTICATED },
 
     { text: 'Мои покупки', link: '/cart', auth: ANY_AUTH_STATUS },
   ],
@@ -45,6 +60,7 @@ export const UserNavData: NavData[] = [
   { text: 'Регистрация', link: '/register', auth: NOT_AUTHENTICATED },
 
   { text: 'Личный кабинет', link: '/cabient', auth: IS_AUTHENTICATED },
+  { text: 'Выйти', link: '/logout', auth: IS_AUTHENTICATED },
 
   { text: 'Мои покупки', link: '/cart', auth: ANY_AUTH_STATUS },
 ];
