@@ -2,14 +2,7 @@ import React, { FC, useState } from 'react';
 import styled from '@emotion/styled/macro';
 import { Burger } from '../../../ui-kit/Burger/Burger.component';
 import { linkColor, mediaMd, transition } from '../../../utils/css.utils';
-import {
-  mobileNavData,
-  NavData,
-  ANY_AUTH_STATUS,
-  IS_AUTHENTICATED,
-  NOT_AUTHENTICATED,
-  createAuthPredicate,
-} from '../HeaderData';
+import { mobileNavData, createAuthPredicate } from '../HeaderData';
 import { Link } from 'react-router-dom';
 
 // #region styled

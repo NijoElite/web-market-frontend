@@ -1,14 +1,7 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled/macro';
 import { mediaMd, linkColor } from '../../../utils/css.utils';
-import {
-  UserNavData,
-  IS_AUTHENTICATED,
-  ANY_AUTH_STATUS,
-  NavData,
-  NOT_AUTHENTICATED,
-  createAuthPredicate,
-} from '../HeaderData';
+import { UserNavData, createAuthPredicate } from '../HeaderData';
 import { Link } from 'react-router-dom';
 
 // #region styled
