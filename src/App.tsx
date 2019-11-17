@@ -5,7 +5,8 @@ import { RegPage } from './pages/RegPage/RegPage.component';
 import { Page } from './ui-kit/Page/Page.component';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { LoginPage } from './pages/LoginPage/LoginPage.component';
+import LoginPage from './pages/LoginPage/LoginPage.component';
+import ErrorModal from './components/ErrorModal/ErrorModal.component';
 
 export default class App extends Component {
   render(): React.ReactNode {
@@ -20,6 +21,7 @@ export default class App extends Component {
             <Route path="/register" exact component={RegPage} />
           </Switch>
         </Page>
+        <ErrorModal />
       </Router>
     );
   }

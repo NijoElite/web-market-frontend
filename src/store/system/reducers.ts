@@ -1,20 +1,38 @@
-import { SystemActionTypes, SystemState, AUTHENTICATE } from './types';
-import Cookies from 'universal-cookie';
+import { SystemActionTypes, SystemState, FETCH_TOKEN_BEGIN, FETCH_TOKEN_FAILURE, FETCH_TOKEN_SUCCESS } from './types';
+import jwt from 'jsonwebtoken';
 
-const cookies = new Cookies();
+const token = localStorage.getItem('token') || '';
+const decoded = jwt.decode(token) as { id: string };
+const userId = decoded ? decoded.id : undefined;
 
 const initialState: SystemState = {
-  userId: null,
-  jwt: cookies.get('token') || null,
+  isFetching: false,
+  userId: userId,
+  jwt: token || undefined,
 };
 
 export const systemReducer = (state = initialState, action: SystemActionTypes): SystemState => {
   switch (action.type) {
-    case AUTHENTICATE:
+    case FETCH_TOKEN_BEGIN:
       return {
         ...state,
-        userId: action.payload.userId,
-        jwt: action.payload.jwt,
+        isFetching: true,
+      };
+
+    case FETCH_TOKEN_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+      };
+
+    case FETCH_TOKEN_SUCCESS:
+      const decoded = jwt.decode(action.jwt) as any;
+
+      return {
+        ...state,
+        jwt: action.jwt,
+        userId: decoded.id || undefined,
+        isFetching: false,
       };
 
     default:

@@ -1,14 +1,13 @@
 import styled from '@emotion/styled/macro';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { LoginForm, LoginFormFields } from '../../components/Forms/LoginForm/LoginForm.component';
-
 import { Container } from '../../ui-kit/Container/Container.component';
 import { mediaMd } from '../../utils/css.utils';
-import { AuthApi } from '../../services/Auth/AuthApi';
-import { RESPONSE_ERROR } from '../../services/types';
-import { Modal } from '../../ui-kit/Modal/Modal.component';
-import { Button } from '../../ui-kit/Button/Button.component';
-import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { login } from '../../store/system/actions';
+import { AppState } from '../../store';
+import { Redirect } from 'react-router';
 
 // #region styled
 const LoginPageStyled = styled.div`
@@ -25,25 +24,24 @@ const LoginPageStyled = styled.div`
 `;
 // #endregion
 
-export const LoginPage: FC = () => {
-  const [modalState, setModalState] = useState({ show: false, message: '' });
-  const [redirectToMain, setRedirectToMain] = useState(false);
+// #region props
+interface DispatchProps {
+  login: (username: string, password: string) => void;
+}
 
+interface StateProps {
+  jwt?: string;
+}
+
+type Props = DispatchProps & StateProps;
+// #endregion
+
+const LoginPage: FC<Props> = ({ login, jwt }) => {
   const handleSubmit = async (values: LoginFormFields): Promise<void> => {
-    const response = await AuthApi.getToken(values.email, values.password);
-    if (response.status === RESPONSE_ERROR) {
-      setModalState({
-        show: true,
-        message: response.errors[0].message,
-      });
-    } else {
-      setRedirectToMain(true);
-    }
+    login(values.email, values.password);
   };
 
-  const handleCloseModal = (): void => setModalState({ ...modalState, show: false });
-
-  if (redirectToMain) {
+  if (jwt) {
     return <Redirect to="/" />;
   }
 
@@ -51,14 +49,25 @@ export const LoginPage: FC = () => {
     <Container>
       <LoginPageStyled>
         <LoginForm onSubmit={handleSubmit} />
-        <Modal show={modalState.show} onBackClick={handleCloseModal}>
-          <Modal.Title>Ошибка</Modal.Title>
-          <Modal.Body>{modalState.message}</Modal.Body>
-          <Modal.Footer>
-            <Button onClick={handleCloseModal}>OK</Button>
-          </Modal.Footer>
-        </Modal>
       </LoginPageStyled>
     </Container>
   );
 };
+
+// #region Map To Props
+const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps => {
+  return {
+    login: (username, password): void => {
+      dispatch(login(username, password));
+    },
+  };
+};
+
+const mapStateToProps = (root: AppState): StateProps => {
+  return {
+    jwt: root.system.jwt,
+  };
+};
+// #endregion
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
