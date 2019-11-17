@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled/macro';
 import { mediaMd, linkColor } from '../../../utils/css.utils';
-import { UserNavData } from '../HeaderData';
+import { UserNavData, IS_AUTHENTICATED, ANY_AUTH_STATUS, NavData, NOT_AUTHENTICATED } from '../HeaderData';
 import { Link } from 'react-router-dom';
 
 // #region styled
@@ -28,13 +28,26 @@ const LinkStyled = styled(Link)`
 
 interface UserNavProps {
   className?: string;
+  isAuthenticated: boolean;
 }
 
-export const UserNav: FC<UserNavProps> = ({ className }) => {
+export const UserNav: FC<UserNavProps> = ({ className, isAuthenticated }) => {
+  const filterPredicate = (el: NavData): boolean => {
+    if (el.auth === ANY_AUTH_STATUS) {
+      return true;
+    }
+
+    if (isAuthenticated) {
+      return el.auth === IS_AUTHENTICATED;
+    } else {
+      return el.auth === NOT_AUTHENTICATED;
+    }
+  };
+
   return (
     <nav className={className}>
       <UserNavListStyled>
-        {UserNavData.map(el => (
+        {UserNavData.filter(filterPredicate).map(el => (
           <li key={el.link}>
             <LinkStyled to={el.link}>{el.text}</LinkStyled>
           </li>

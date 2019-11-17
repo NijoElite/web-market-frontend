@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header } from './components/Header/Header.component';
+import Header from './components/Header/Header.component';
 import { MainPage } from './pages/MainPage/MainPage.component';
 import { RegPage } from './pages/RegPage/RegPage.component';
 import { Page } from './ui-kit/Page/Page.component';

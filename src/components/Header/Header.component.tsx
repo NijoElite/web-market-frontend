@@ -8,6 +8,8 @@ import { SearchForm } from './SearchForm/SearchForm.component';
 import { UserNav } from './UserNav/UserNav.component';
 import { SiteNav } from './SiteNav/SiteNav.component';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { AppState } from '../../store';
 
 // #region styled
 const HeaderStyled = styled.header`
@@ -64,19 +66,27 @@ const Logo: FC = () => {
   );
 };
 
-interface HeaderProps {
+// #region Props
+interface OwnProps {
   className?: string;
 }
 
-export const Header: FC<HeaderProps> = memo(({ className }) => {
+interface StateProps {
+  isAuthenticated: boolean;
+}
+
+type HeaderProps = StateProps & OwnProps;
+// #endregion
+
+const Header: FC<HeaderProps> = memo(({ className, isAuthenticated }) => {
   return (
     <HeaderStyled className={className}>
       <Container>
         <TopHeader>
-          <MobileHeader />
+          <MobileHeader isAuthenticated={isAuthenticated} />
           <Logo />
           <TopColumnStyled>
-            <UserNav />
+            <UserNav isAuthenticated={isAuthenticated} />
             <SearchForm />
           </TopColumnStyled>
         </TopHeader>
@@ -86,3 +96,11 @@ export const Header: FC<HeaderProps> = memo(({ className }) => {
     </HeaderStyled>
   );
 });
+
+const mapStateToProps = (state: AppState): StateProps => {
+  return {
+    isAuthenticated: !!state.system.jwt,
+  };
+};
+
+export default connect(mapStateToProps)(Header);

@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import styled from '@emotion/styled/macro';
 import { Burger } from '../../../ui-kit/Burger/Burger.component';
 import { linkColor, mediaMd, transition } from '../../../utils/css.utils';
-import { mobileNavData } from '../HeaderData';
+import { mobileNavData, NavData, ANY_AUTH_STATUS, IS_AUTHENTICATED, NOT_AUTHENTICATED } from '../HeaderData';
 import { Link } from 'react-router-dom';
 
 // #region styled
@@ -61,13 +61,30 @@ const BurgerStyled = styled(Burger)`
 `;
 // #endregion
 
-export const MobileHeader: FC = () => {
+interface MobileHeaderProps {
+  isAuthenticated: boolean;
+  className?: string;
+}
+
+export const MobileHeader: FC<MobileHeaderProps> = ({ isAuthenticated }) => {
   const [open, setOpen] = useState(false);
+
+  const filterPredicate = (el: NavData): boolean => {
+    if (el.auth === ANY_AUTH_STATUS) {
+      return true;
+    }
+
+    if (isAuthenticated) {
+      return el.auth === IS_AUTHENTICATED;
+    } else {
+      return el.auth === NOT_AUTHENTICATED;
+    }
+  };
 
   const items = mobileNavData.map((list, i) => {
     return (
       <ListStyled key={i}>
-        {list.map(item => (
+        {list.filter(filterPredicate).map(item => (
           <ListItemStyled key={item.link}>
             <Link to={item.link} onClick={(): void => setOpen(false)}>
               {item.text}
