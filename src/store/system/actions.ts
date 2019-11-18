@@ -25,6 +25,7 @@ export const fetchFailure = (): types.FetchTokenFailure => {
 };
 
 export const logout = (): types.Logout => {
+  localStorage.setItem('token', '');
   return {
     type: types.LOGOUT,
   };
