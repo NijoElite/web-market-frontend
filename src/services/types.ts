@@ -1,5 +1,6 @@
 import { AuthResponse } from './Auth/types';
-import { CreateUserResponse } from './User/types';
+import { UserResponse } from './User/types';
+import { ProductResponse } from './Product/types';
 
 export const RESPONSE_SUCCESS = 'success';
 export const RESPONSE_ERROR = 'error';
@@ -14,4 +15,4 @@ export interface ErrorResponse {
   errors: Error[];
 }
 
-export type ApiResponse = AuthResponse | CreateUserResponse;
+export type ApiResponse = AuthResponse | UserResponse | ProductResponse;

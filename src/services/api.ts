@@ -6,9 +6,10 @@ const BASE_URL = 'api';
 export interface CallOptions {
   method: 'POST' | 'GET';
   body?: string;
-  queryParams?: {
+  query?: {
     [key: string]: string | number | boolean;
   };
+  params?: string[];
 }
 
 export async function call<T extends ApiResponse>(
@@ -16,7 +17,11 @@ export async function call<T extends ApiResponse>(
   method: string,
   options: CallOptions,
 ): Promise<T | ErrorResponse> {
-  const url = `${BASE_URL}/${API_V}/${service}/${method}`;
+  let url = `${BASE_URL}/${API_V}/${service}/${method ? method + '/' : ''}`;
+
+  if (options.params) {
+    url += options.params.join('/');
+  }
 
   const response = await fetch(url, {
     ...options,
