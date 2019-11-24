@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage/LoginPage.component';
 import ErrorModal from './components/ErrorModal/ErrorModal.component';
 import LogoutPage from './pages/LogoutPage/LogoutPage.component';
+import GamePage from './pages/GamePage/GamePage.component';
 
 export default class App extends Component {
   render(): React.ReactNode {
@@ -16,8 +17,8 @@ export default class App extends Component {
         <Header />
         <Page>
           <Switch>
-            <Route path="/catalog">lol</Route>
             <Route path="/" exact component={MainPage} />
+            <Route path="/catalog/:article" exact component={GamePage} />
             <Route path="/login" exact component={LoginPage} />
             <Route path="/register" exact component={RegPage} />
             <Route path="/logout" exact component={LogoutPage} />

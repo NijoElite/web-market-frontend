@@ -13,8 +13,9 @@ export interface UserFullInfo extends UserPartialInfo {
 
 export interface Product {
   article: string;
-  ownerId: string;
+  owner: string;
   name: string;
+  ownerId: string;
   description: string;
   price: number;
   requirements: {
@@ -22,7 +23,9 @@ export interface Product {
     value: string;
   }[];
   publisher: string;
-  defaultImage: string;
+  releaseDate: string;
   sliderImage: string;
+  defaultImage: string;
   rating: number;
+  genres: string[];
 }

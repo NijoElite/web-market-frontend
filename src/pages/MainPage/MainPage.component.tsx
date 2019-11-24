@@ -21,6 +21,9 @@ const mockData: Product = {
   publisher: '',
   sliderImage: '',
   rating: 5,
+  owner: '',
+  releaseDate: '',
+  genres: [],
 };
 
 const mockCarousel = ['https://cdn.gabestore.ru/category/yZX_l6hOvLAz_3TnSUk5jLr03hcObcAB.jpg'];
