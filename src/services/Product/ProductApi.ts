@@ -12,8 +12,8 @@ export class ProductApi {
 
   static async getProduct(params: GetProductParams): Promise<GetProductResponse | ErrorResponse> {
     return await call<GetProductResponse>(ProductApi.SERVICE_NAME, '', {
-      method: 'POST',
-      body: JSON.stringify(params),
+      method: 'GET',
+      params: [params.article],
     });
   }
 }

@@ -6,6 +6,7 @@ export interface GetProductResponse {
     article: string;
     owner: string;
     name: string;
+    ownerId: string;
     description: string;
     price: number;
     requirements: {

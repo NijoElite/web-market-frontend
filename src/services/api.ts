@@ -17,7 +17,7 @@ export async function call<T extends ApiResponse>(
   method: string,
   options: CallOptions,
 ): Promise<T | ErrorResponse> {
-  let url = `${BASE_URL}/${API_V}/${service}/${method ? method + '/' : ''}`;
+  let url = `/${BASE_URL}/${API_V}/${service}/${method ? method + '/' : ''}`;
 
   if (options.params) {
     url += options.params.join('/');
