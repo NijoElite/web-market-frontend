@@ -1,7 +1,6 @@
 import styled from '@emotion/styled/macro';
 import React, { FC, useEffect, useState } from 'react';
 import { Container } from '../../ui-kit/Container/Container.component';
-import { Product } from '../../types/types';
 import { useParams } from 'react-router';
 import { mediaMd } from '../../utils/css.utils';
 import { Button } from '../../ui-kit/Button/Button.component';
@@ -11,6 +10,7 @@ import { CartItem } from '../../store/cart/types';
 import { addItemInCart } from '../../store/cart/actions';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { Product } from '../../services/Product/types';
 
 // #region styled
 const Header = styled.h2`

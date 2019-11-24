@@ -1,8 +1,9 @@
-import React, { FC } from 'react';
-import { Product } from '../../types/types';
+import React, { FC, useState, useEffect } from 'react';
 import { mediaMd, mediaLg } from '../../utils/css.utils';
 import styled from '@emotion/styled/macro';
 import { GameCard } from '../GameCard/GameCard.component';
+import { Product } from '../../services/Product/types';
+import { ProductApi } from '../../services/Product/ProductApi';
 
 // #region styled
 const CatalogStyled = styled.div`
@@ -25,19 +26,37 @@ const ColumnStyled = styled.div`
 `;
 // #endregion
 
-interface CatalogProps {
-  games: Product[];
-  className?: string;
-}
+export const Catalog: FC = () => {
+  const [fetchError, setFetchError] = useState(false);
+  const [games, setGames] = useState<Product[] | null>(null);
 
-export const Catalog: FC<CatalogProps> = ({ games, className }) => {
+  useEffect(() => {
+    const fetchLatestGames = async (): Promise<void> => {
+      const response = await ProductApi.getLatest();
+
+      if (response.status === 'error') {
+        setFetchError(true);
+      } else {
+        setGames(response.data);
+      }
+    };
+    if (!games) {
+      fetchLatestGames();
+    }
+  });
+
+  if (fetchError) {
+    return <div>Произошла ошибка при загрузку данных</div>;
+  }
+
   return (
-    <CatalogStyled className={className}>
-      {games.map(game => (
-        <ColumnStyled key={game.article}>
-          <GameCard game={game} />
-        </ColumnStyled>
-      ))}
+    <CatalogStyled>
+      {games &&
+        games.map(game => (
+          <ColumnStyled key={game.article}>
+            <GameCard game={game} />
+          </ColumnStyled>
+        ))}
     </CatalogStyled>
   );
 };
