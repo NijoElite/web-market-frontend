@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage/LoginPage.component';
 import ErrorModal from './components/ErrorModal/ErrorModal.component';
 import LogoutPage from './pages/LogoutPage/LogoutPage.component';
 import GamePage from './pages/GamePage/GamePage.component';
+import CartPage from './pages/CartPage/CartPage.component';
 
 export default class App extends Component {
   render(): React.ReactNode {
@@ -22,6 +23,7 @@ export default class App extends Component {
             <Route path="/login" exact component={LoginPage} />
             <Route path="/register" exact component={RegPage} />
             <Route path="/logout" exact component={LogoutPage} />
+            <Route path="/cart" exact component={CartPage} />
           </Switch>
         </Page>
         <ErrorModal />
