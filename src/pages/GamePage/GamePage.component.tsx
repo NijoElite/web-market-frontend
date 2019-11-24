@@ -1,18 +1,16 @@
 import styled from '@emotion/styled/macro';
 import React, { FC, useEffect, useState } from 'react';
 import { Container } from '../../ui-kit/Container/Container.component';
-import { connect } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { login } from '../../store/system/actions';
-import { AppState } from '../../store';
 import { Product } from '../../types/types';
 import { useParams } from 'react-router';
 import { mediaMd } from '../../utils/css.utils';
 import { Button } from '../../ui-kit/Button/Button.component';
-import { string } from 'prop-types';
 import { ProductApi } from '../../services/Product/ProductApi';
-import { GetProductResponse } from '../../services/Product/types';
-import { ErrorResponse } from '../../services/types';
+import { AppState } from '../../store';
+import { CartItem } from '../../store/cart/types';
+import { addItemInCart } from '../../store/cart/actions';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 
 // #region styled
 const Header = styled.h2`
@@ -102,15 +100,23 @@ const BuyButton = styled(Button)`
 // #endregion
 
 // #region props
+interface StateProps {
+  cart: CartItem[];
+}
 
+interface DispatchProps {
+  addCartItem: (article: string) => void;
+}
+
+type Props = StateProps & DispatchProps;
 // #endregion
 
-const GamePage: FC = () => {
+const GamePage: FC<Props> = ({ addCartItem, cart }) => {
   const [product, setProduct] = useState<Product | null>(null);
   const [fetchError, setFetchError] = useState(false);
 
   const { article = '' } = useParams();
-
+  console.log(cart);
   // Load Data
   useEffect(() => {
     const fetchProduct = async (article: string): Promise<void> => {
@@ -156,7 +162,7 @@ const GamePage: FC = () => {
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione facere et, quidem ut reiciendis error ea
               labore numquam ipsum sit.
             </Description>
-            <BuyButton>В корзину</BuyButton>
+            <BuyButton onClick={(): void => addCartItem(article)}>В корзину</BuyButton>
           </Block>
           {product.requirements && (
             <Block>
@@ -177,4 +183,21 @@ const GamePage: FC = () => {
   );
 };
 
-export default GamePage;
+// #region Map To Props
+const mapStateToProps = (root: AppState): StateProps => {
+  return {
+    cart: root.cart.items,
+  };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
+  return {
+    addCartItem: (article: string): void => {
+      dispatch(addItemInCart(article));
+    },
+  };
+};
+
+// #endregion
+
+export default connect(mapStateToProps, mapDispatchToProps)(GamePage);
