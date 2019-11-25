@@ -43,7 +43,7 @@ export const mobileNavData: NavData[][] = [
     { text: 'Войти', link: '/login', auth: NOT_AUTHENTICATED },
     { text: 'Регистрация', link: '/register', auth: NOT_AUTHENTICATED },
 
-    { text: 'Личный кабинет', link: '/cabient', auth: IS_AUTHENTICATED },
+    { text: 'Личный кабинет', link: '/cabinet', auth: IS_AUTHENTICATED },
     { text: 'Выйти', link: '/logout', auth: IS_AUTHENTICATED },
 
     { text: 'Мои покупки', link: '/cart', auth: ANY_AUTH_STATUS },
@@ -59,7 +59,7 @@ export const UserNavData: NavData[] = [
   { text: 'Войти', link: '/login', auth: NOT_AUTHENTICATED },
   { text: 'Регистрация', link: '/register', auth: NOT_AUTHENTICATED },
 
-  { text: 'Личный кабинет', link: '/cabient', auth: IS_AUTHENTICATED },
+  { text: 'Личный кабинет', link: '/cabinet', auth: IS_AUTHENTICATED },
   { text: 'Выйти', link: '/logout', auth: IS_AUTHENTICATED },
 
   { text: 'Мои покупки', link: '/cart', auth: ANY_AUTH_STATUS },
