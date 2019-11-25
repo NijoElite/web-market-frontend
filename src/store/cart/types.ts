@@ -10,6 +10,7 @@ export interface CartState {
 export const ADD_ITEM_IN_CART = 'ADD_ITEM_IN_CART';
 export const DELETE_CART_ITEM = 'DELETE_CART_ITEM';
 export const UPDATE_CART_ITEM_QTY = 'UPDATE_CART_ITEM_QT';
+export const CLEAR_CART = 'CLEAR_CART';
 
 export interface AddItemInCart {
   type: typeof ADD_ITEM_IN_CART;
@@ -33,4 +34,8 @@ export interface UpdateCartItemQty {
   };
 }
 
-export type CartActionTypes = AddItemInCart | DeleteCartItem | UpdateCartItemQty;
+export interface ClearCart {
+  type: typeof CLEAR_CART;
+}
+
+export type CartActionTypes = AddItemInCart | DeleteCartItem | UpdateCartItemQty | ClearCart;

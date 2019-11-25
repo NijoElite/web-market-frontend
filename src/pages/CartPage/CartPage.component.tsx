@@ -9,14 +9,20 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AppState } from '../../store';
 import { Dispatch } from 'redux';
-import { addItemInCart, deleteCartItem } from '../../store/cart/actions';
+import { addItemInCart, deleteCartItem, updateCartItemQty, clearCart } from '../../store/cart/actions';
 import { ProductApi } from '../../services/Product/ProductApi';
+import { Currency } from '../../ui-kit/Currency/Currency.component';
+import { Button } from '../../ui-kit/Button/Button.component';
+import { OrderApi } from '../../services/Order/OrderApi';
+import { setErrors } from '../../store/errors/actions';
+import { Error } from '../../services/types';
 
 // #region styled
 const Block = styled.div`
   background: #fff;
   padding: 10px;
   margin-bottom: 15px;
+  min-height: 350px;
 `;
 
 const Wrapper = styled.div`
@@ -41,13 +47,12 @@ const Header = styled.h2`
 
 const LeftSidebar = styled.div`
   width: 100%;
-  background: #fff;
   margin-bottom: 15px;
 
   ${mediaMd} {
     margin-bottom: 0;
 
-    width: 29%;
+    width: 69%;
   }
 `;
 
@@ -55,7 +60,7 @@ const RightSidebar = styled.div`
   width: 100%;
 
   ${mediaMd} {
-    width: 70%;
+    width: 29%;
   }
 `;
 
@@ -70,7 +75,6 @@ const CartItemStyled = styled.div`
 `;
 
 const ButtonsGroup = styled.div`
-  margin-right: 25px;
   height: 40px;
   display: flex;
   align-items: center;
@@ -147,12 +151,32 @@ const Left = styled.div`
   display: flex;
 `;
 
+const Cost = styled.div``;
+
 const Right = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   width: 50%;
 `;
+
+const GameImageWrapper = styled.div`
+  width: 25%;
+  margin-right: 25px;
+
+  > img {
+    width: 100%;
+  }
+`;
+
+const OrderBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  min-height: 300px;
+`;
+
 // #endregion
 
 interface CartItemProps {
@@ -160,12 +184,16 @@ interface CartItemProps {
   qty: number;
   onAdd: (article: string) => void;
   onRemove: (article: string) => void;
+  onUpdateQty: (article: string, qty: number) => void;
 }
 
-const CartListItem: FC<CartItemProps> = ({ game, qty, onAdd, onRemove }) => {
+const CartListItem: FC<CartItemProps> = ({ game, qty, onAdd, onRemove, onUpdateQty }) => {
   return (
     <CartItemStyled>
       <Left>
+        <GameImageWrapper>
+          <img src={'/' + game.defaultImage} alt="" />
+        </GameImageWrapper>
         <Link to={'/catalog/' + game.article}>{game.name}</Link>
       </Left>
       <Right>
@@ -174,11 +202,17 @@ const CartListItem: FC<CartItemProps> = ({ game, qty, onAdd, onRemove }) => {
           <Count>{qty}</Count>
           <AddButton onClick={(): void => onAdd(game.article)} />
         </ButtonsGroup>
+        <Cost>
+          {qty * game.price}
+          <Currency type="rub" />
+        </Cost>
+        <DeleteButton onClick={(): void => onUpdateQty(game.article, 0)} />
       </Right>
     </CartItemStyled>
   );
 };
 
+// #region Cart Page Interfaces
 interface StateProps {
   cartItems: CartItem[];
 }
@@ -186,11 +220,15 @@ interface StateProps {
 interface DispatchProps {
   addInCart: (article: string) => void;
   removeFromCart: (article: string) => void;
+  updateCartItemQty: (article: string, qty: number) => void;
+  setError: (errors: Error[]) => void;
+  clearCart: () => void;
 }
 
 type Props = StateProps & DispatchProps;
+// #endregion
 
-const CartPage: FC<Props> = ({ addInCart, cartItems, removeFromCart }) => {
+const CartPage: FC<Props> = ({ addInCart, cartItems, removeFromCart, updateCartItemQty, setError, clearCart }) => {
   const [games, setGames] = useState<Product[] | null>(null);
 
   useEffect(() => {
@@ -212,6 +250,18 @@ const CartPage: FC<Props> = ({ addInCart, cartItems, removeFromCart }) => {
     }
   });
 
+  const makeOrder = async (): Promise<void> => {
+    if (cartItems.length === 0) return;
+
+    const response = await OrderApi.createOrder(cartItems);
+    if (response.status === 'error') {
+      setError(response.errors);
+    } else {
+      clearCart();
+    }
+  };
+
+  let totalCost = 0;
   const items = !games
     ? []
     : games.map(game => {
@@ -220,20 +270,43 @@ const CartPage: FC<Props> = ({ addInCart, cartItems, removeFromCart }) => {
         if (qty === 0) {
           return null;
         }
-        return <CartListItem key={game.article} game={game} onAdd={addInCart} onRemove={removeFromCart} qty={qty} />;
+        totalCost += qty * game.price;
+        return (
+          <CartListItem
+            key={game.article}
+            game={game}
+            onAdd={addInCart}
+            onRemove={removeFromCart}
+            onUpdateQty={updateCartItemQty}
+            qty={qty}
+          />
+        );
       });
 
   return (
     <Container>
       <Wrapper>
         <Header>Корзина</Header>
-        <LeftSidebar>{items}</LeftSidebar>
-        <RightSidebar></RightSidebar>
+        <LeftSidebar>
+          <Block>{items.length !== 0 ? items : 'В корзине ничего нет'}</Block>
+        </LeftSidebar>
+        <RightSidebar>
+          <Block>
+            <OrderBlock>
+              <BlockHeader>
+                {'Итоговая стоимость: ' + totalCost}
+                <Currency type="rub" />
+              </BlockHeader>
+              <Button onClick={makeOrder}>Оформить заказ</Button>
+            </OrderBlock>
+          </Block>
+        </RightSidebar>
       </Wrapper>
     </Container>
   );
 };
 
+// #region Map To Props
 const mapStateToProps = (root: AppState): StateProps => {
   return {
     cartItems: root.cart.items,
@@ -248,7 +321,17 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
     removeFromCart: (article: string): void => {
       dispatch(deleteCartItem(article));
     },
+    updateCartItemQty: (article: string, qty: number): void => {
+      dispatch(updateCartItemQty(article, qty));
+    },
+    setError: (errors: Error[]): void => {
+      dispatch(setErrors(errors));
+    },
+    clearCart: (): void => {
+      dispatch(clearCart());
+    },
   };
 };
+// #endregion
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartPage);

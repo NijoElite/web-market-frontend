@@ -2,7 +2,7 @@ import * as types from './types';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import { AuthApi } from '../../services/Auth/AuthApi';
-import { setError } from '../errors/actions';
+import { setErrors } from '../errors/actions';
 
 // #region Action Creators
 export const fetchBegin = (): types.FetchTokenBegin => {
@@ -46,7 +46,7 @@ export const login = (email: string, password: string): ThunkAction<Promise<void
     } else {
       const errors = apiResponse.errors;
       dispatch(fetchFailure());
-      dispatch(setError(errors));
+      dispatch(setErrors(errors));
     }
   };
 };

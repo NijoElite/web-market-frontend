@@ -5,6 +5,8 @@ import {
   ADD_ITEM_IN_CART,
   DELETE_CART_ITEM,
   UPDATE_CART_ITEM_QTY,
+  ClearCart,
+  CLEAR_CART,
 } from './types';
 
 export const addItemInCart = (article: string): AddItemInCart => {
@@ -32,5 +34,11 @@ export const updateCartItemQty = (article: string, qty: number): UpdateCartItemQ
       artilce: article,
       qty: qty,
     },
+  };
+};
+
+export const clearCart = (): ClearCart => {
+  return {
+    type: CLEAR_CART,
   };
 };

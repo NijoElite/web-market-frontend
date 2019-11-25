@@ -8,7 +8,7 @@ export const resetErrors = (): types.HandleErrorReset => {
   };
 };
 
-export const setError = (errors: Error[]): types.SetErrors => {
+export const setErrors = (errors: Error[]): types.SetErrors => {
   return {
     type: types.SET_ERRORS,
     errors: errors,
