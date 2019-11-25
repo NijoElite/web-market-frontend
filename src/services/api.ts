@@ -23,6 +23,15 @@ export async function call<T extends ApiResponse>(
     url += options.params.join('/');
   }
 
+  if (options.query) {
+    const pairs = Object.entries(options.query);
+    const query = [];
+    for (const [key, value] of pairs) {
+      query.push(`${key}=${value}`);
+    }
+    url += '?' + query.join('&');
+  }
+
   const response = await fetch(url, {
     ...options,
     headers: {

@@ -9,6 +9,8 @@ export interface Order {
     price: number;
     isPaid: boolean;
   }[];
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface CreateOrderResponse {
