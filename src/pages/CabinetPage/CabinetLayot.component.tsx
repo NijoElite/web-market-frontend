@@ -1,12 +1,8 @@
 import React, { FC } from 'react';
+import { Container } from '../../ui-kit/Container/Container.component';
 
 const CabinetLayout: FC = ({ children }) => {
-  return (
-    <div>
-      <div>LAYOUT</div>
-      {children}
-    </div>
-  );
+  return <Container>{children}</Container>;
 };
 
 export default CabinetLayout;
