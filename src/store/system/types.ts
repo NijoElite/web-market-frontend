@@ -6,7 +6,7 @@ export interface SystemState {
 }
 // #endregion
 
-// #region Action Types
+// #region Constants
 export const FETCH_TOKEN_BEGIN = 'FETCH_TOKEN_BEGIN';
 export const FETCH_TOKEN_SUCCESS = 'FETCH_TOKEN_SUCCESS';
 export const FETCH_TOKEN_FAILURE = 'FETCH_TOKEN_FAILURE';

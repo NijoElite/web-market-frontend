@@ -1,5 +1,16 @@
 import { RESPONSE_SUCCESS } from '../types';
 
+export interface User {
+  _id: string;
+  firstName: string;
+  secondName: string;
+  lastName: string;
+  phone: string;
+  role: string[];
+  email?: string;
+  birthday?: string;
+}
+
 export interface CreateUserResponse {
   status: typeof RESPONSE_SUCCESS;
   data: {
@@ -10,16 +21,7 @@ export interface CreateUserResponse {
 export interface GetUserResponse {
   status: typeof RESPONSE_SUCCESS;
   data: {
-    user: {
-      _id: string;
-      firstName: string;
-      secondName: string;
-      lastName: string;
-      phone: string;
-      role: string[];
-      email?: string;
-      birthday?: string;
-    };
+    user: User;
   };
 }
 
