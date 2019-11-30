@@ -49,7 +49,7 @@ const CategoryItemTextStyled = styled.p`
 `;
 
 const CatNavWrapperStyled = styled.div`
-  background: #f1f1f1;
+  background: #f6f6f6;
   display: none;
 
   ${mediaMd} {
