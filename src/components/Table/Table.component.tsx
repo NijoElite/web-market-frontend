@@ -15,7 +15,7 @@ const TableRowStyled = styled.div`
   ${transition('all')}
 
   &:not(:last-child) {
-    margin-bottom: 15px;
+    margin-bottom: 25px;
   }
 `;
 
@@ -36,10 +36,7 @@ const TableStyled = styled.div`
   display: flex;
   flex-wrap: wrap;
 
-  > ${TableRowStyled}:nth-child(2n) {
-    background: #f9fafe;
-  }
-  > ${TableRowStyled}:nth-child(2n - 1) {
+  > ${TableRowStyled} {
     background: #fff;
   }
 `;
