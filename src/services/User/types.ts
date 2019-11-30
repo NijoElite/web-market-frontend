@@ -7,4 +7,20 @@ export interface CreateUserResponse {
   };
 }
 
-export type UserResponse = CreateUserResponse;
+export interface GetUserResponse {
+  status: typeof RESPONSE_SUCCESS;
+  data: {
+    user: {
+      _id: string;
+      firstName: string;
+      secondName: string;
+      lastName: string;
+      phone: string;
+      role: string[];
+      email?: string;
+      birthday?: string;
+    };
+  };
+}
+
+export type UserResponse = CreateUserResponse | GetUserResponse;

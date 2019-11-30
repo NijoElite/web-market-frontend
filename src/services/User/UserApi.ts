@@ -1,7 +1,7 @@
 import { ErrorResponse } from '../types';
 
 import { call } from '../api';
-import { CreateUserResponse } from './types';
+import { CreateUserResponse, GetUserResponse } from './types';
 
 interface CreateUserParams {
   email: string;
@@ -19,6 +19,13 @@ export class UserApi {
     return await call<CreateUserResponse>(UserApi.SERVICE_NAME, '', {
       method: 'POST',
       body: JSON.stringify(params),
+    });
+  }
+
+  static async getUser(userId: string): Promise<GetUserResponse | ErrorResponse> {
+    return await call<GetUserResponse>(UserApi.SERVICE_NAME, '', {
+      method: 'GET',
+      query: { id: userId, token: localStorage.getItem('token') || '' },
     });
   }
 }
