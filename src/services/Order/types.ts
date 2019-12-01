@@ -28,7 +28,7 @@ export interface GetUserOrdersResponse {
   data: Order[];
 }
 
-export interface GetCustomerOrdersResponse {
+export interface GetSellerOrdersResponse {
   status: typeof RESPONSE_SUCCESS;
   data: Order[];
 }
@@ -41,5 +41,5 @@ export interface ChangeStatusResponse {
 export type OrderResponse =
   | CreateOrderResponse
   | GetUserOrdersResponse
-  | GetCustomerOrdersResponse
+  | GetSellerOrdersResponse
   | ChangeStatusResponse;

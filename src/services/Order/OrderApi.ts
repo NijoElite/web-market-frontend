@@ -1,6 +1,6 @@
 import { ErrorResponse } from '../types';
 import { call } from '../api';
-import { CreateOrderResponse, GetUserOrdersResponse, GetCustomerOrdersResponse, ChangeStatusResponse } from './types';
+import { CreateOrderResponse, GetUserOrdersResponse, GetSellerOrdersResponse, ChangeStatusResponse } from './types';
 import { CartItem } from '../../store/cart/types';
 
 export class OrderApi {
@@ -20,8 +20,8 @@ export class OrderApi {
     });
   }
 
-  static async getCustomerOrders(): Promise<GetCustomerOrdersResponse | ErrorResponse> {
-    return await call<GetCustomerOrdersResponse>(OrderApi.SERVICE_NAME, 'customer', {
+  static async getSellerOrders(): Promise<GetSellerOrdersResponse | ErrorResponse> {
+    return await call<GetSellerOrdersResponse>(OrderApi.SERVICE_NAME, 'customer', {
       method: 'GET',
       query: { token: localStorage.getItem('token') || '' },
     });

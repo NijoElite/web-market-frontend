@@ -4,7 +4,9 @@ import { UserApi } from '../../services/User/UserApi';
 import { connect } from 'react-redux';
 import { AppState } from '../../store';
 import styled from '@emotion/styled/macro';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch, Switch, Route } from 'react-router-dom';
+import SellerCabinet from './Seller/SellerCabinet.component';
+import UserCabinet from './User/UserCabinet.component';
 
 // #region styled
 const RolesPanel = styled.div`
@@ -30,7 +32,8 @@ const RoleButton = styled(Link)`
 const links: { [key: string]: [string, string] } = {
   user: ['Пользователь', '/cabinet'],
   admin: ['Администратор', '/cabinet/admin'],
-  customer: ['Продавец', '/cabinet/customer'],
+  seller: ['Продавец', '/cabinet/seller'],
+  customer: ['Продавец', '/cabinet/seller'], // TODO: remove
 };
 
 interface StateProps {
@@ -39,14 +42,18 @@ interface StateProps {
 
 type Props = StateProps;
 
-const Cabinet: FC<Props> = ({ children, userId }) => {
+const Cabinet: FC<Props> = ({ userId }) => {
   const [userRoles, setUserRoles] = useState<string[]>([]);
+
+  const match = useRouteMatch();
 
   useEffect(() => {
     const fetchUserData = async (): Promise<void> => {
       const response = await UserApi.getUser(userId || '');
 
       if (response.status === 'success') {
+        console.log(response);
+        console.log('set user roles', response.data.user.role);
         setUserRoles(response.data.user.role);
       }
     };
@@ -61,7 +68,14 @@ const Cabinet: FC<Props> = ({ children, userId }) => {
           <RoleButton to={links[role][1]}>{links[role][0]}</RoleButton>
         ))}
       </RolesPanel>
-      {children}
+      {!match ? (
+        <div>404</div>
+      ) : (
+        <Switch>
+          <Route path={`${match.url}/seller`} component={SellerCabinet} />
+          <Route path={`${match.url}/`} exact component={UserCabinet} />}
+        </Switch>
+      )}
     </Container>
   );
 };

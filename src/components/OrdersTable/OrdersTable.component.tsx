@@ -17,28 +17,28 @@ const TableCellBold = styled(TableCell)`
 
 export interface OrdersTableProps {
   orders: Order[];
-  isCustomer: boolean;
+  isSeller: boolean;
   onChangeStatusClick?: (order: string, article: string, status: boolean) => void;
 }
 
 interface OrderItemRowProps {
   item: OrderItem;
-  isCustomer: boolean;
+  isSeller: boolean;
   onChangeStatusClick?: (article: string, status: boolean) => void;
 }
 
-const OrderItemRow: FC<OrderItemRowProps> = ({ item, isCustomer, onChangeStatusClick }) => {
+const OrderItemRow: FC<OrderItemRowProps> = ({ item, isSeller, onChangeStatusClick }) => {
   return (
     <TableRow>
       <TableCell description="Артикул">{item.article}</TableCell>
-      {!isCustomer && <TableCell description="Продавец">{item.seller}</TableCell>}
+      {!isSeller && <TableCell description="Продавец">{item.seller}</TableCell>}
       <TableCell description="Цена">
         {item.price}
         <Currency type="rub" />
       </TableCell>
       <TableCell description="Кол-во">{item.qty}</TableCell>
       <TableCell description="Оплачен">{item.isPaid ? 'Да' : 'Нет'}</TableCell>
-      {isCustomer && (
+      {isSeller && (
         <TableCell>
           <Button onClick={(): void => onChangeStatusClick && onChangeStatusClick(item.article, !item.isPaid)}>
             Изменить статус
@@ -49,12 +49,12 @@ const OrderItemRow: FC<OrderItemRowProps> = ({ item, isCustomer, onChangeStatusC
   );
 };
 
-const OrderCells: FC<{ order: Order; isCustomer: boolean }> = ({ order, isCustomer }) => {
+const OrderCells: FC<{ order: Order; isSeller: boolean }> = ({ order, isSeller }) => {
   return (
     <React.Fragment>
       <TableCellBold description="Дата заказа">{new Date(order.createdAt).toLocaleDateString()}</TableCellBold>
       <TableCellBold description="Кол-во">{order.items.length}</TableCellBold>
-      {isCustomer && <TableCellBold description="Покупатель">{order.customer}</TableCellBold>}
+      {isSeller && <TableCellBold description="Покупатель">{order.customer}</TableCellBold>}
       <TableCellBold description="Итог">
         {order.items.reduce((totalCost, item) => totalCost + item.qty * item.price, 0)}
         <Currency type="rub" />
@@ -63,18 +63,18 @@ const OrderCells: FC<{ order: Order; isCustomer: boolean }> = ({ order, isCustom
   );
 };
 
-export const OrdersTable: FC<OrdersTableProps> = ({ orders, isCustomer, onChangeStatusClick }) => {
+export const OrdersTable: FC<OrdersTableProps> = ({ orders, isSeller, onChangeStatusClick }) => {
   return (
     <Table>
       {orders.map(order => {
         return (
           <TableRow>
-            <OrderCells order={order} isCustomer={isCustomer} />
+            <OrderCells order={order} isSeller={isSeller} />
             <SubTable>
               {order.items.map(item => (
                 <OrderItemRow
                   item={item}
-                  isCustomer={isCustomer}
+                  isSeller={isSeller}
                   onChangeStatusClick={(article, status): void =>
                     onChangeStatusClick && onChangeStatusClick(order._id, article, status)
                   }

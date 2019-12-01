@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState } from 'react';
-import Cabinet from '../Cabinet.component';
 import { Headline } from '../../../components/Headline/Headline.component';
 import { OrdersTable } from '../../../components/OrdersTable/OrdersTable.component';
 import { Order } from '../../../services/Order/types';
@@ -10,7 +9,7 @@ export const SellerCabinet: FC = () => {
 
   useEffect(() => {
     const fetchOrders = async (): Promise<void> => {
-      const response = await OrderApi.getCustomerOrders();
+      const response = await OrderApi.getSellerOrders();
 
       if (response.status === 'success') {
         setOrders(response.data);
@@ -32,11 +31,11 @@ export const SellerCabinet: FC = () => {
   };
 
   return (
-    <Cabinet>
+    <React.Fragment>
       <Headline>У Вас заказали</Headline>
       {orders.length === 0 && <span>Заказов нет</span>}
-      <OrdersTable orders={orders} isCustomer={true} onChangeStatusClick={onOrderStatusChange} />
-    </Cabinet>
+      <OrdersTable orders={orders} isSeller={true} onChangeStatusClick={onOrderStatusChange} />
+    </React.Fragment>
   );
 };
 export default SellerCabinet;
