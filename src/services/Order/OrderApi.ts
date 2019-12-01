@@ -20,7 +20,7 @@ export class OrderApi {
     });
   }
 
-  static async getCustomerOrder(): Promise<GetCustomerOrdersResponse | ErrorResponse> {
+  static async getCustomerOrders(): Promise<GetCustomerOrdersResponse | ErrorResponse> {
     return await call<GetCustomerOrdersResponse>(OrderApi.SERVICE_NAME, 'customer', {
       method: 'GET',
       query: { token: localStorage.getItem('token') || '' },

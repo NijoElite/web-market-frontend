@@ -1,14 +1,16 @@
 import { RESPONSE_SUCCESS } from '../types';
 
+export interface OrderItem {
+  article: string;
+  seller: string;
+  qty: number;
+  price: number;
+  isPaid: boolean;
+}
+
 export interface Order {
   customer: string;
-  items: {
-    article: string;
-    seller: string;
-    qty: number;
-    price: number;
-    isPaid: boolean;
-  }[];
+  items: OrderItem[];
   createdAt: string;
   updatedAt: string;
 }

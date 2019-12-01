@@ -11,7 +11,7 @@ import LogoutPage from './pages/LogoutPage/LogoutPage.component';
 import GamePage from './pages/GamePage/GamePage.component';
 import CartPage from './pages/CartPage/CartPage.component';
 import UserCabinet from './pages/CabinetPage/User/UserCabinet.component';
-import CustomerCabinet from './pages/CabinetPage/Customer/CustomerCabinet.component';
+import SellerCabinet from './pages/CabinetPage/Seller/SellerCabinet.component';
 
 export default class App extends Component {
   render(): React.ReactNode {
@@ -27,7 +27,7 @@ export default class App extends Component {
             <Route path="/logout" exact component={LogoutPage} />
             <Route path="/cart" exact component={CartPage} />
             <Route path="/cabinet/" exact component={UserCabinet} />
-            <Route path="/cabinet/customer" exact component={CustomerCabinet} />
+            <Route path="/cabinet/customer" exact component={SellerCabinet} />
           </Switch>
         </Page>
         <ErrorModal />
