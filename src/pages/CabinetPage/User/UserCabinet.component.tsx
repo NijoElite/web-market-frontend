@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
-import CabinetLayout from '../CabinetLayot.component';
+import CabinetLayout from '../Cabinet.component';
 import { Order } from '../../../services/Order/types';
 import { OrderApi } from '../../../services/Order/OrderApi';
 import { TableRow, Table, TableCell, DropTable as SubTable } from '../../../components/Table/Table.component';
-import { Currency } from '../../../ui-kit/Currency/Currency.component';
+import { Currency } from '../../../components/Currency/Currency.component';
 import styled from '@emotion/styled/macro';
 
 // #region styled
@@ -20,11 +20,10 @@ const Header = styled.h2`
   font-weight: bold;
   width: 100%;
 `;
-
 // #endregion
 
 const UserCabinet: FC = () => {
-  const [orders, setOrders] = useState<Order[] | null>(null);
+  const [orders, setOrders] = useState<Order[]>([]);
 
   useEffect(() => {
     const fetchOrders = async (): Promise<void> => {
@@ -35,18 +34,15 @@ const UserCabinet: FC = () => {
       }
     };
 
-    if (!orders) {
-      fetchOrders();
-    }
-  });
+    fetchOrders();
+  }, []);
 
-  const withOrders = orders && orders.length !== 0;
   return (
     <CabinetLayout>
       <Header>Ваши заказы</Header>
 
-      {!withOrders && <span>Заказов нет</span>}
-      {orders && (
+      {orders.length === 0 && <span>Заказов нет</span>}
+      {
         <Table>
           {orders.map(order => {
             return (
@@ -80,7 +76,7 @@ const UserCabinet: FC = () => {
             );
           })}
         </Table>
-      )}
+      }
     </CabinetLayout>
   );
 };

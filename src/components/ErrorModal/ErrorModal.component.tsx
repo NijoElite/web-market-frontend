@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { Modal } from '../../ui-kit/Modal/Modal.component';
-import { Button } from '../../ui-kit/Button/Button.component';
+import { Modal } from '../Modal/Modal.component';
+import { Button } from '../Button/Button.component';
 import { connect } from 'react-redux';
 import { AppState } from '../../store';
 import { Dispatch } from 'redux';

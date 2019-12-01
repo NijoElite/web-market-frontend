@@ -1,9 +1,9 @@
 import styled from '@emotion/styled/macro';
 import React, { FC, useEffect, useState } from 'react';
-import { Container } from '../../ui-kit/Container/Container.component';
+import { Container } from '../../components/Container/Container.component';
 import { useParams } from 'react-router';
 import { mediaMd } from '../../utils/css.utils';
-import { Button } from '../../ui-kit/Button/Button.component';
+import { Button } from '../../components/Button/Button.component';
 import { ProductApi } from '../../services/Product/ProductApi';
 import { AppState } from '../../store';
 import { CartItem } from '../../store/cart/types';
@@ -116,12 +116,12 @@ const GamePage: FC<Props> = ({ addCartItem, cart }) => {
   const [fetchError, setFetchError] = useState(false);
 
   const { article = '' } = useParams();
-  console.log(cart);
+
   // Load Data
   useEffect(() => {
     const fetchProduct = async (article: string): Promise<void> => {
       const product = await ProductApi.getProduct({ article });
-      console.log(product);
+
       if (product.status === 'success') {
         setProduct(product.data);
       } else {
@@ -158,10 +158,7 @@ const GamePage: FC<Props> = ({ addCartItem, cart }) => {
         <RightSidebar>
           <Block>
             <BlockHeader>Описание</BlockHeader>
-            <Description>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione facere et, quidem ut reiciendis error ea
-              labore numquam ipsum sit.
-            </Description>
+            <Description>{product.description}</Description>
             <BuyButton onClick={(): void => addCartItem(article)}>В корзину</BuyButton>
           </Block>
           {product.requirements && (

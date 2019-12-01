@@ -2,8 +2,8 @@ import React, { memo, FC } from 'react';
 import styled from '@emotion/styled/macro';
 import { mediaMd, linkReset, transition, linkColor } from '../../../utils/css.utils';
 import { navCategoriesData } from '../HeaderData';
-import { Icon } from '../../../ui-kit/Icon/Icon.component';
-import { Container } from '../../../ui-kit/Container/Container.component';
+import { Icon } from '../../Icon/Icon.component';
+import { Container } from '../../Container/Container.component';
 import { Link } from 'react-router-dom';
 
 // #region styled

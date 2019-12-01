@@ -1,7 +1,7 @@
 import styled from '@emotion/styled/macro';
 import React, { FC } from 'react';
 import { LoginForm, LoginFormFields } from '../../components/Forms/LoginForm/LoginForm.component';
-import { Container } from '../../ui-kit/Container/Container.component';
+import { Container } from '../../components/Container/Container.component';
 import { mediaMd } from '../../utils/css.utils';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';

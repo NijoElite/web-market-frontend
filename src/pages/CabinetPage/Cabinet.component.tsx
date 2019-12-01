@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Container } from '../../ui-kit/Container/Container.component';
+import { Container } from '../../components/Container/Container.component';
 import { UserApi } from '../../services/User/UserApi';
 import { connect } from 'react-redux';
 import { AppState } from '../../store';
@@ -39,24 +39,20 @@ interface StateProps {
 
 type Props = StateProps;
 
-const CabinetLayout: FC<Props> = ({ children, userId }) => {
+const Cabinet: FC<Props> = ({ children, userId }) => {
   const [userRoles, setUserRoles] = useState<string[]>([]);
-  const [isFetched, setFetched] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async (): Promise<void> => {
       const response = await UserApi.getUser(userId || '');
-      setFetched(true);
 
       if (response.status === 'success') {
         setUserRoles(response.data.user.role);
       }
     };
 
-    if (!isFetched) {
-      fetchUserData();
-    }
-  });
+    fetchUserData();
+  }, [userId]);
 
   return (
     <Container>
@@ -79,4 +75,4 @@ const mapStateToProps = (root: AppState): StateProps => {
 
 // #endregion
 
-export default connect(mapStateToProps)(CabinetLayout);
+export default connect(mapStateToProps)(Cabinet);

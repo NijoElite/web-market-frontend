@@ -1,6 +1,6 @@
 import React, { memo, FC } from 'react';
 import styled from '@emotion/styled/macro';
-import { Container } from '../../ui-kit/Container/Container.component';
+import { Container } from '../Container/Container.component';
 import { linkReset, mediaMd } from '../../utils/css.utils';
 import { MobileHeader } from './MobileHeader/MobileHeader.component';
 import { CategoriesNav } from './CategoriesNav/CategoriesNav.component';

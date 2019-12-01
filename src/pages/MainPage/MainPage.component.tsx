@@ -1,6 +1,6 @@
 import { Catalog } from '../../components/Catalog/Catalog.component';
-import { Container } from '../../ui-kit/Container/Container.component';
-import { Carousel } from '../../ui-kit/Carousel/Carousel.component';
+import { Container } from '../../components/Container/Container.component';
+import { Carousel } from '../../components/Carousel/Carousel.component';
 import styled from '@emotion/styled/macro';
 import React, { FC } from 'react';
 

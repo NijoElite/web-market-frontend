@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styled from '@emotion/styled/macro';
 import { mediaMd, linkColor, transition } from '../../../utils/css.utils';
 import { SiteNavData } from '../HeaderData';
-import { Container } from '../../../ui-kit/Container/Container.component';
+import { Container } from '../../Container/Container.component';
 import { Link } from 'react-router-dom';
 
 // #region styled

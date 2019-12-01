@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import CabinetLayout from '../CabinetLayot.component';
+import CabinetLayout from '../Cabinet.component';
 
 const CustomerCabinet: FC = () => {
   return (

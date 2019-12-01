@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from 'react';
 import styled from '@emotion/styled/macro';
-import { Container } from '../../ui-kit/Container/Container.component';
+import { Container } from '../../components/Container/Container.component';
 import { mediaMd } from '../../utils/css.utils';
 import css from '@emotion/css';
 import { Product } from '../../services/Product/types';
@@ -11,8 +11,8 @@ import { AppState } from '../../store';
 import { Dispatch } from 'redux';
 import { addItemInCart, deleteCartItem, updateCartItemQty, clearCart } from '../../store/cart/actions';
 import { ProductApi } from '../../services/Product/ProductApi';
-import { Currency } from '../../ui-kit/Currency/Currency.component';
-import { Button } from '../../ui-kit/Button/Button.component';
+import { Currency } from '../../components/Currency/Currency.component';
+import { Button } from '../../components/Button/Button.component';
 import { OrderApi } from '../../services/Order/OrderApi';
 import { setErrors } from '../../store/errors/actions';
 import { Error } from '../../services/types';
@@ -229,7 +229,7 @@ type Props = StateProps & DispatchProps;
 // #endregion
 
 const CartPage: FC<Props> = ({ addInCart, cartItems, removeFromCart, updateCartItemQty, setError, clearCart }) => {
-  const [games, setGames] = useState<Product[] | null>(null);
+  const [games, setGames] = useState<Product[]>([]);
 
   useEffect(() => {
     const fetchGames = async (): Promise<void> => {
@@ -245,10 +245,8 @@ const CartPage: FC<Props> = ({ addInCart, cartItems, removeFromCart, updateCartI
       setGames(fetchedGames);
     };
 
-    if (!games) {
-      fetchGames();
-    }
-  });
+    fetchGames();
+  }, [cartItems]);
 
   const makeOrder = async (): Promise<void> => {
     if (cartItems.length === 0) return;
@@ -262,26 +260,25 @@ const CartPage: FC<Props> = ({ addInCart, cartItems, removeFromCart, updateCartI
   };
 
   let totalCost = 0;
-  const items = !games
-    ? []
-    : games.map(game => {
-        const gameInCart = cartItems.find(el => el.article === game.article);
-        const qty = gameInCart ? gameInCart.qty : 0;
-        if (qty === 0) {
-          return null;
-        }
-        totalCost += qty * game.price;
-        return (
-          <CartListItem
-            key={game.article}
-            game={game}
-            onAdd={addInCart}
-            onRemove={removeFromCart}
-            onUpdateQty={updateCartItemQty}
-            qty={qty}
-          />
-        );
-      });
+  const items = games.map(game => {
+    const gameInCart = cartItems.find(el => el.article === game.article);
+    const qty = gameInCart ? gameInCart.qty : 0;
+    if (qty === 0) {
+      return null;
+    }
+    totalCost += qty * game.price;
+
+    return (
+      <CartListItem
+        key={game.article}
+        game={game}
+        onAdd={addInCart}
+        onRemove={removeFromCart}
+        onUpdateQty={updateCartItemQty}
+        qty={qty}
+      />
+    );
+  });
 
   return (
     <Container>

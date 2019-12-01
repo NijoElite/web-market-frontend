@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import styled from '@emotion/styled/macro';
-import { Burger } from '../../../ui-kit/Burger/Burger.component';
+import { Burger } from '../../Burger/Burger.component';
 import { linkColor, mediaMd, transition } from '../../../utils/css.utils';
 import { mobileNavData, createAuthPredicate } from '../HeaderData';
 import { Link } from 'react-router-dom';

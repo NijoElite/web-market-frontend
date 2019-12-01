@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { linkColor } from '../../utils/css.utils';
 import styled from '@emotion/styled/macro';
-import { Currency } from '../../ui-kit/Currency/Currency.component';
+import { Currency } from '../Currency/Currency.component';
 import { Link } from 'react-router-dom';
 import { Product } from '../../services/Product/types';
 

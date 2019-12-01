@@ -2,11 +2,11 @@ import styled from '@emotion/styled/macro';
 import React, { FC, useState } from 'react';
 import { RegForm, RegFormFields } from '../../components/Forms/RegForm/RegForm.component';
 
-import { Container } from '../../ui-kit/Container/Container.component';
+import { Container } from '../../components/Container/Container.component';
 import { mediaMd } from '../../utils/css.utils';
-import { Modal } from '../../ui-kit/Modal/Modal.component';
+import { Modal } from '../../components/Modal/Modal.component';
 import { Redirect } from 'react-router-dom';
-import { Button } from '../../ui-kit/Button/Button.component';
+import { Button } from '../../components/Button/Button.component';
 import { UserApi } from '../../services/User/UserApi';
 
 // #region styled

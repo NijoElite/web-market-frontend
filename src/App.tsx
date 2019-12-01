@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Header from './components/Header/Header.component';
 import { MainPage } from './pages/MainPage/MainPage.component';
 import { RegPage } from './pages/RegPage/RegPage.component';
-import { Page } from './ui-kit/Page/Page.component';
+import { Page } from './components/Page/Page.component';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage/LoginPage.component';
@@ -11,7 +11,7 @@ import LogoutPage from './pages/LogoutPage/LogoutPage.component';
 import GamePage from './pages/GamePage/GamePage.component';
 import CartPage from './pages/CartPage/CartPage.component';
 import UserCabinet from './pages/CabinetPage/User/UserCabinet.component';
-import CustomerCabinet from './pages/CabinetPage/Customer/UserCabinet.component';
+import CustomerCabinet from './pages/CabinetPage/Customer/CustomerCabinet.component';
 
 export default class App extends Component {
   render(): React.ReactNode {
