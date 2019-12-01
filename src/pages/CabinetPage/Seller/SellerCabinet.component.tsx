@@ -20,11 +20,22 @@ export const SellerCabinet: FC = () => {
     fetchOrders();
   }, []);
 
+  const onOrderStatusChange = async (order: string, article: string, status: boolean): Promise<void> => {
+    const response = await OrderApi.changeStatus(order, article, status);
+
+    if (response.status === 'success') {
+      const newOrder = response.data;
+      const updatedOrders = orders.map(order => (order._id === newOrder._id ? newOrder : order));
+
+      setOrders(updatedOrders);
+    }
+  };
+
   return (
     <Cabinet>
       <Headline>У Вас заказали</Headline>
       {orders.length === 0 && <span>Заказов нет</span>}
-      <OrdersTable orders={orders} isCustomer={true} />
+      <OrdersTable orders={orders} isCustomer={true} onChangeStatusClick={onOrderStatusChange} />
     </Cabinet>
   );
 };

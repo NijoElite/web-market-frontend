@@ -12,6 +12,8 @@ const TableRowStyled = styled.div`
   flex-wrap: wrap;
   background: transparent;
   border-radius: 15px;
+  background: #fff;
+
   ${transition('all')}
 
   &:not(:last-child) {
@@ -35,10 +37,6 @@ const TableStyled = styled.div`
   overflow: hidden;
   display: flex;
   flex-wrap: wrap;
-
-  > ${TableRowStyled} {
-    background: #fff;
-  }
 `;
 
 const DropTableStyled = styled('div')`
@@ -47,10 +45,6 @@ const DropTableStyled = styled('div')`
   flex-wrap: wrap;
   padding: 15px 0;
   width: 100%;
-
-  > ${TableRowStyled}:hover {
-    background: #ffc608;
-  }
 `;
 // #endregion
 

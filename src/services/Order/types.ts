@@ -13,6 +13,7 @@ export interface Order {
   items: OrderItem[];
   createdAt: string;
   updatedAt: string;
+  _id: string;
 }
 
 export interface CreateOrderResponse {
@@ -32,4 +33,13 @@ export interface GetCustomerOrdersResponse {
   data: Order[];
 }
 
-export type OrderResponse = CreateOrderResponse | GetUserOrdersResponse | GetCustomerOrdersResponse;
+export interface ChangeStatusResponse {
+  status: typeof RESPONSE_SUCCESS;
+  data: Order;
+}
+
+export type OrderResponse =
+  | CreateOrderResponse
+  | GetUserOrdersResponse
+  | GetCustomerOrdersResponse
+  | ChangeStatusResponse;
