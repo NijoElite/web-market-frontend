@@ -18,6 +18,13 @@ export interface CreateUserResponse {
   };
 }
 
+export interface UpdateUserResponse {
+  status: typeof RESPONSE_SUCCESS;
+  data: {
+    user: User;
+  };
+}
+
 export interface GetUserResponse {
   status: typeof RESPONSE_SUCCESS;
   data: {
@@ -25,4 +32,4 @@ export interface GetUserResponse {
   };
 }
 
-export type UserResponse = CreateUserResponse | GetUserResponse;
+export type UserResponse = CreateUserResponse | GetUserResponse | UpdateUserResponse;

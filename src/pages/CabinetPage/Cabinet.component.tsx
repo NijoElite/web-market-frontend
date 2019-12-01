@@ -52,8 +52,6 @@ const Cabinet: FC<Props> = ({ userId }) => {
       const response = await UserApi.getUser(userId || '');
 
       if (response.status === 'success') {
-        console.log(response);
-        console.log('set user roles', response.data.user.role);
         setUserRoles(response.data.user.role);
       }
     };
@@ -86,7 +84,6 @@ const mapStateToProps = (root: AppState): StateProps => {
     userId: root.system.userId,
   };
 };
-
 // #endregion
 
 export default connect(mapStateToProps)(Cabinet);

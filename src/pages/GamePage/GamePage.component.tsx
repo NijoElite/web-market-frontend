@@ -11,6 +11,8 @@ import { addItemInCart } from '../../store/cart/actions';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Product } from '../../services/Product/types';
+import { Block } from '../../components/Block/Block.component';
+import { BlockHeader } from '../../components/BlockHeader/BlockHeader.component';
 
 // #region styled
 const Header = styled.h2`
@@ -57,11 +59,6 @@ const GameLogo = styled.div`
   }
 `;
 
-const BlockHeader = styled.h3`
-  font-size: 24px;
-  font-weight: bold;
-`;
-
 const GenresList = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -82,15 +79,10 @@ const ReqValue = styled.div`
 `;
 
 const Genre = styled.p``;
+
 const Description = styled.p`
   font-size: 16px;
   font-weight: normal;
-`;
-
-const Block = styled.div`
-  background: #fff;
-  padding: 10px;
-  margin-bottom: 15px;
 `;
 
 const BuyButton = styled(Button)`
