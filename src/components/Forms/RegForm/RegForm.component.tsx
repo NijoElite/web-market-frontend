@@ -68,7 +68,7 @@ const validate = (values: RegFormFields): RegFormErrors => {
 
   if (!values.birthday) {
     errors.birthday = 'Обязательное поле';
-  } else if (!/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/.test(values.birthday)) {
+  } else if (!/^([0-2][0-9]|(3)[0-1])(\.)(((0)[0-9])|((1)[0-2]))(\.)\d{4}$/.test(values.birthday)) {
     errors.birthday = 'Неправильный формат';
   }
 

@@ -1,13 +1,16 @@
 import styled from '@emotion/styled/macro';
 import React, { FC, useState } from 'react';
 import { RegForm, RegFormFields } from '../../components/Forms/RegForm/RegForm.component';
-
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { Container } from '../../components/Container/Container.component';
 import { mediaMd } from '../../utils/css.utils';
 import { Modal } from '../../components/Modal/Modal.component';
 import { Redirect } from 'react-router-dom';
 import { Button } from '../../components/Button/Button.component';
 import { UserApi } from '../../services/User/UserApi';
+
+dayjs.extend(customParseFormat);
 
 // #region styled
 const RegPageStyled = styled.div`
@@ -32,7 +35,10 @@ export const RegPage: FC = () => {
 
   const handleSubmit = async (values: RegFormFields): Promise<void> => {
     try {
-      const response = await UserApi.createUser(values);
+      const response = await UserApi.createUser({
+        ...values,
+        birthday: dayjs(values.birthday, 'DD.MM.YYYY').toISOString(),
+      });
 
       if (response.status === 'error') {
         setModalState({
