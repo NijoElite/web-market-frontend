@@ -32,7 +32,14 @@ export interface GetLatestResponse {
 
 export interface CreateProductResponse {
   status: typeof RESPONSE_SUCCESS;
-  data: User;
+  data: {
+    productId: string;
+  };
 }
 
-export type ProductResponse = GetProductResponse | GetLatestResponse | CreateProductResponse;
+export interface GetOwnProductsResponse {
+  status: typeof RESPONSE_SUCCESS;
+  data: Product[];
+}
+
+export type ProductResponse = GetProductResponse | GetLatestResponse | CreateProductResponse | GetOwnProductsResponse;

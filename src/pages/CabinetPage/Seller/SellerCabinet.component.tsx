@@ -4,6 +4,7 @@ import { ActionsBlockStyled } from '../ActionsBlock.component';
 import { Link, useRouteMatch, Switch, Route } from 'react-router-dom';
 import { SellerOrders } from './SellerOrders.component';
 import { NewProduct } from './NewProduct.component';
+import { ProductsList } from './ProductsList.component';
 
 export const SellerCabinet: FC = () => {
   const match = useRouteMatch();
@@ -26,6 +27,7 @@ export const SellerCabinet: FC = () => {
         <Switch>
           <Route exact path={`${match.url}/`} component={SellerOrders} />
           <Route exact path={`${match.url}/add`} component={NewProduct} />
+          <Route exact path={`${match.url}/products`} component={ProductsList} />
         </Switch>
       )}
     </React.Fragment>
