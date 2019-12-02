@@ -1,10 +1,20 @@
 import { ErrorResponse } from '../types';
 
 import { call } from '../api';
-import { GetProductResponse, GetLatestResponse } from './types';
+import { GetProductResponse, GetLatestResponse, Product, CreateProductResponse } from './types';
 
 interface GetProductParams {
   article: string;
+}
+
+interface CreateProductParams {
+  name: string;
+  description: string;
+  price: number;
+  requirements: { option: string; value: string }[];
+  publisher: string;
+  releaseDate: string;
+  genres: string[];
 }
 
 export class ProductApi {
@@ -20,6 +30,13 @@ export class ProductApi {
   static async getLatest(): Promise<GetLatestResponse | ErrorResponse> {
     return await call<GetLatestResponse>(ProductApi.SERVICE_NAME, 'latest', {
       method: 'GET',
+    });
+  }
+
+  static async createProduct(product: CreateProductParams): Promise<CreateProductResponse | ErrorResponse> {
+    return await call<CreateProductResponse>(ProductApi.SERVICE_NAME, '', {
+      method: 'POST',
+      body: JSON.stringify({ ...product, token: localStorage.getItem('token') }),
     });
   }
 }

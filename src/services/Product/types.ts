@@ -1,4 +1,5 @@
 import { RESPONSE_SUCCESS } from '../types';
+import { User } from '../User/types';
 
 export interface Product {
   article: string;
@@ -29,4 +30,9 @@ export interface GetLatestResponse {
   data: Product[];
 }
 
-export type ProductResponse = GetProductResponse | GetLatestResponse;
+export interface CreateProductResponse {
+  status: typeof RESPONSE_SUCCESS;
+  data: User;
+}
+
+export type ProductResponse = GetProductResponse | GetLatestResponse | CreateProductResponse;
