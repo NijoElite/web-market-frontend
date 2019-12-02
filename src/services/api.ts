@@ -38,7 +38,6 @@ export async function call<T extends ApiResponse>(
       'Content-Type': 'application/json',
     },
   });
-  const j = (await response.json()) as T | ErrorResponse;
-  console.log(j);
-  return j;
+
+  return (await response.json()) as T | ErrorResponse;
 }

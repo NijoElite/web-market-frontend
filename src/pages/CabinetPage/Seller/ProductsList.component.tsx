@@ -20,7 +20,6 @@ export const ProductsList: FC = () => {
   useEffect(() => {
     fetchProducts();
   }, []);
-  console.log(products);
   return (
     <React.Fragment>
       <Headline>Ваши товары</Headline>

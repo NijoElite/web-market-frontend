@@ -167,7 +167,6 @@ export const NewProduct: FC = () => {
   const [isCreated, setCreated] = useState(false);
 
   const handleSubmit = async (fields: ProductFormFields): Promise<void> => {
-    console.log(fields);
     const response = await ProductApi.createProduct({
       description: fields.description,
       genres: fields.genres.split(','),
