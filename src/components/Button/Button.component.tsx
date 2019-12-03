@@ -1,6 +1,8 @@
 import styled from '@emotion/styled/macro';
+import { FC } from 'react';
+import React from 'react';
 
-export const Button = styled('button')<{ small?: boolean }>`
+const ButtonStyled = styled('button')<{ small?: boolean }>`
   background: #ffc608;
   border: 1px solid #ffc608;
   border-radius: 5px;
@@ -17,4 +19,18 @@ export const Button = styled('button')<{ small?: boolean }>`
     box-shadow: 0px 0px 0 1px #ffc608;
     text-decoration: none;
   }
+
+  &:disabled {
+    background: #f1f1f1;
+    border-color: #f1f1f1;
+  }
 `;
+
+export interface ButtonProps
+  extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
+  small?: boolean;
+}
+
+export const Button: FC<ButtonProps> = ({ children, ...props }) => {
+  return <ButtonStyled {...props}>{children}</ButtonStyled>;
+};
