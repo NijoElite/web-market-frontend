@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { DropTable as SubTable, Table, TableCell, TableRow } from '../Table/Table.component';
+import { DropTable, Table, TableCell, TableRow } from '../Table/Table.component';
 import { Currency } from '../Currency/Currency.component';
 import { Order, OrderItem } from '../../services/Order/types';
 import styled from '@emotion/styled/macro';
@@ -70,7 +70,7 @@ export const OrdersTable: FC<OrdersTableProps> = ({ orders, isSeller, onChangeSt
         return (
           <TableRow>
             <OrderCells order={order} isSeller={isSeller} />
-            <SubTable>
+            <DropTable>
               {order.items.map(item => (
                 <OrderItemRow
                   item={item}
@@ -80,7 +80,7 @@ export const OrdersTable: FC<OrdersTableProps> = ({ orders, isSeller, onChangeSt
                   }
                 />
               ))}
-            </SubTable>
+            </DropTable>
           </TableRow>
         );
       })}

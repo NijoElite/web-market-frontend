@@ -1,6 +1,6 @@
 import styled from '@emotion/styled/macro';
 import React, { FC, useState } from 'react';
-import { RegForm, RegFormFields } from '../../components/Forms/RegForm/RegForm.component';
+import { RegForm, RegFormFields } from '../../components/RegForm/RegForm.component';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { Container } from '../../components/Container/Container.component';

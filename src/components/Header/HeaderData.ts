@@ -55,7 +55,7 @@ export const mobileNavData: NavData[][] = [
   ],
 ];
 
-export const UserNavData: NavData[] = [
+export const userNavData: NavData[] = [
   { text: 'Войти', link: '/login', auth: NOT_AUTHENTICATED },
   { text: 'Регистрация', link: '/register', auth: NOT_AUTHENTICATED },
 
@@ -65,7 +65,7 @@ export const UserNavData: NavData[] = [
   { text: 'Мои покупки', link: '/cart', auth: ANY_AUTH_STATUS },
 ];
 
-export const SiteNavData: NavData[] = [
+export const siteNavData: NavData[] = [
   { text: 'Главная', link: '/', auth: ANY_AUTH_STATUS },
   { text: 'Каталог игр', link: '/catalog', auth: ANY_AUTH_STATUS },
   { text: 'Новинки', link: '/newgames', auth: ANY_AUTH_STATUS },

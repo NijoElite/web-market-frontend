@@ -104,7 +104,7 @@ type Props = StateProps & DispatchProps;
 // #endregion
 
 const GamePage: FC<Props> = ({ addCartItem, cart }) => {
-  const [product, setProduct] = useState<Product | null>(null);
+  const [product, setProduct] = useState<Product>();
   const [fetchError, setFetchError] = useState(false);
 
   const { article = '' } = useParams();

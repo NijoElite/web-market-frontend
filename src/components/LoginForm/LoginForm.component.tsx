@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 
 import { useFormik } from 'formik';
-import { Input } from '../../Form/Input/Input.component';
-import { FormHeader } from '../../Form/FormHeader/FormHeader.component';
-import { FormButton } from '../../Form/FormButton/FormButton.component';
+import { Input } from '../Form/Input/Input.component';
+import { FormHeader } from '../Form/FormHeader/FormHeader.component';
+import { FormButton } from '../Form/FormButton/FormButton.component';
 import styled from '@emotion/styled/macro';
 
 // #region styled

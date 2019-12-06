@@ -1,6 +1,6 @@
 import styled from '@emotion/styled/macro';
 import React, { FC } from 'react';
-import { LoginForm, LoginFormFields } from '../../components/Forms/LoginForm/LoginForm.component';
+import { LoginForm, LoginFormFields } from '../../components/LoginForm/LoginForm.component';
 import { Container } from '../../components/Container/Container.component';
 import { mediaMd } from '../../utils/css.utils';
 import { connect } from 'react-redux';

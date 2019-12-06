@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled/macro';
 import { mediaMd, linkColor, transition } from '../../../utils/css.utils';
-import { SiteNavData } from '../HeaderData';
+import { siteNavData } from '../HeaderData';
 import { Container } from '../../Container/Container.component';
 import { Link } from 'react-router-dom';
 
@@ -53,7 +53,7 @@ interface SiteNavProps {
 }
 
 export const SiteNav: FC<SiteNavProps> = ({ className }) => {
-  const items = SiteNavData.map(el => (
+  const items = siteNavData.map(el => (
     <ListItemStyled key={el.link}>
       <LinkStyled to={el.link}>{el.text}</LinkStyled>
     </ListItemStyled>
