@@ -10,6 +10,7 @@ import { Button } from '../../../components/Button/Button.component';
 import { ProductApi } from '../../../services/Product/ProductApi';
 import { Redirect, useParams } from 'react-router';
 import { Product } from '../../../services/Product/types';
+import { UploadApi } from '../../../services/Upload/UploadApi';
 
 dayjs.extend(customParseFormat);
 
@@ -25,6 +26,8 @@ interface ProductFormFields {
   publisher: string;
   releaseDate: string;
   genres: string;
+  sliderImage: string;
+  defaultImage: string;
 }
 
 interface ProductFormProps {
@@ -49,7 +52,12 @@ const validate = (values: ProductFormFields): Partial<ProductFormFields> => {
   if (!values.requirements) {
     errors.requirements = 'Обязательное поле';
   }
-
+  if (!values.sliderImage) {
+    errors.sliderImage = 'Обязательное поле';
+  }
+  if (!values.defaultImage) {
+    errors.defaultImage = 'Обязательное поле';
+  }
   if (!values.genres) {
     errors.genres = 'Обязательное поле';
   }
@@ -78,6 +86,8 @@ const ProductForm: FC<ProductFormProps> = ({ onSubmit, product }) => {
       publisher: product.publisher || '',
       releaseDate: dayjs(product.releaseDate).format('DD.MM.YYYY'),
       genres: product.genres.join(','),
+      defaultImage: product.defaultImage,
+      sliderImage: product.sliderImage,
     };
   } else {
     initialValues = {
@@ -88,8 +98,33 @@ const ProductForm: FC<ProductFormProps> = ({ onSubmit, product }) => {
       publisher: '',
       releaseDate: dayjs(Date.now()).format('DD.MM.YYYY'),
       genres: '',
+      defaultImage: '',
+      sliderImage: '',
     };
   }
+
+  const uploadFile = async (file: File): Promise<string | null> => {
+    const response = await UploadApi.upload(file);
+
+    if (response.status === 'success') {
+      return response.data.path;
+    } else {
+      return null;
+    }
+  };
+
+  const handleFileInputChange = async (event: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
+    const target = event.target;
+
+    if (!target.files) return;
+
+    const file = target.files[0];
+    const path = await uploadFile(file);
+
+    if (!path) return;
+
+    formik.setFieldValue(target.name, path, true);
+  };
 
   const formik = useFormik({
     initialValues,
@@ -110,6 +145,8 @@ const ProductForm: FC<ProductFormProps> = ({ onSubmit, product }) => {
         isValid={!formik.errors.name}
         errorMessage={formik.errors.name}
       />
+      <input id="sliderImage" name="sliderImage" type="file" onChange={handleFileInputChange} />
+      <input id="defaultImage" name="defaultImage" type="file" onChange={handleFileInputChange} />
       <Input
         id="price"
         name="price"
@@ -211,6 +248,8 @@ export const NewProduct: FC = () => {
       name: fields.name,
       price: +fields.price,
       publisher: fields.publisher,
+      sliderImage: fields.sliderImage,
+      defaultImage: fields.defaultImage,
       releaseDate: dayjs(fields.releaseDate, 'DD.MM.YYYY').toISOString(),
       requirements: fields.requirements.split(',').map(req => {
         const [option, value] = req.split(':');
@@ -235,6 +274,8 @@ export const NewProduct: FC = () => {
       name: fields.name,
       price: +fields.price,
       publisher: fields.publisher,
+      sliderImage: fields.sliderImage,
+      defaultImage: fields.defaultImage,
       releaseDate: dayjs(fields.releaseDate, 'DD.MM.YYYY').toISOString(),
       requirements: fields.requirements.split(',').map(req => {
         const [option, value] = req.split(':');

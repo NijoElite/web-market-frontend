@@ -5,11 +5,12 @@ const BASE_URL = 'api';
 
 export interface CallOptions {
   method: 'POST' | 'GET';
-  body?: string;
+  body?: string | FormData;
   query?: {
     [key: string]: string | number | boolean;
   };
   params?: string[];
+  contentType?: string;
 }
 
 export async function call<T extends ApiResponse>(
@@ -32,12 +33,17 @@ export async function call<T extends ApiResponse>(
     url += '?' + query.join('&');
   }
 
-  const response = await fetch(url, {
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  const fetchInit =
+    typeof options.body === 'string'
+      ? {
+          ...options,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      : { ...options };
+
+  const response = await fetch(url, fetchInit);
 
   return (await response.json()) as T | ErrorResponse;
 }

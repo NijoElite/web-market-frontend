@@ -2,6 +2,7 @@ import { AuthResponse } from './Auth/types';
 import { UserResponse } from './User/types';
 import { ProductResponse } from './Product/types';
 import { OrderResponse } from './Order/types';
+import { UploadResponse } from './Upload/types';
 
 export const RESPONSE_SUCCESS = 'success';
 export const RESPONSE_ERROR = 'error';
@@ -16,4 +17,4 @@ export interface ErrorResponse {
   errors: Error[];
 }
 
-export type ApiResponse = AuthResponse | UserResponse | ProductResponse | OrderResponse;
+export type ApiResponse = AuthResponse | UserResponse | ProductResponse | OrderResponse | UploadResponse;

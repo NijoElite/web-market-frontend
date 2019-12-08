@@ -30,6 +30,8 @@ interface CreateProductParams {
   requirements: { option: string; value: string }[];
   publisher: string;
   releaseDate: string;
+  sliderImage: string;
+  defaultImage: string;
   genres: string[];
 }
 
@@ -41,6 +43,8 @@ interface UpdateProductParams {
   requirements: { option: string; value: string }[];
   publisher: string;
   releaseDate: string;
+  sliderImage: string;
+  defaultImage: string;
   genres: string[];
 }
 
