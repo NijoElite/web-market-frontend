@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { Headline } from '../../../components/Headline/Headline.component';
 import styled from '@emotion/styled';
 import { useFormik } from 'formik';
@@ -8,7 +8,8 @@ import { Block } from '../../../components/Block/Block.component';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { Button } from '../../../components/Button/Button.component';
 import { ProductApi } from '../../../services/Product/ProductApi';
-import { Redirect } from 'react-router';
+import { Redirect, useParams } from 'react-router';
+import { Product } from '../../../services/Product/types';
 
 dayjs.extend(customParseFormat);
 
@@ -28,6 +29,7 @@ interface ProductFormFields {
 
 interface ProductFormProps {
   onSubmit: (fields: ProductFormFields) => void;
+  product?: Product;
 }
 
 const validate = (values: ProductFormFields): Partial<ProductFormFields> => {
@@ -64,9 +66,21 @@ const validate = (values: ProductFormFields): Partial<ProductFormFields> => {
   return errors;
 };
 
-const ProductForm: FC<ProductFormProps> = ({ onSubmit }) => {
-  const formik = useFormik({
-    initialValues: {
+const ProductForm: FC<ProductFormProps> = ({ onSubmit, product }) => {
+  let initialValues: ProductFormFields;
+
+  if (product) {
+    initialValues = {
+      name: product.name,
+      description: product.description,
+      price: product.price + '',
+      requirements: product.requirements ? product.requirements.map(req => req.option + ':' + req.value).join(',') : '',
+      publisher: product.publisher || '',
+      releaseDate: dayjs(product.releaseDate).format('DD.MM.YYYY'),
+      genres: product.genres.join(','),
+    };
+  } else {
+    initialValues = {
       name: '',
       description: '',
       price: '500',
@@ -74,9 +88,13 @@ const ProductForm: FC<ProductFormProps> = ({ onSubmit }) => {
       publisher: '',
       releaseDate: dayjs(Date.now()).format('DD.MM.YYYY'),
       genres: '',
-    },
+    };
+  }
+
+  const formik = useFormik({
+    initialValues,
     validate,
-    onSubmit: onSubmit,
+    onSubmit,
   });
 
   return (
@@ -165,8 +183,52 @@ const ProductForm: FC<ProductFormProps> = ({ onSubmit }) => {
 
 export const NewProduct: FC = () => {
   const [isCreated, setCreated] = useState(false);
+  const [product, setProduct] = useState<Product>();
+
+  const { article } = useParams();
+
+  useEffect(() => {
+    const fetchProduct = async (article: string): Promise<void> => {
+      const response = await ProductApi.getProduct({ article });
+
+      if (response.status === 'success') {
+        setProduct(response.data);
+      }
+    };
+
+    if (article) {
+      fetchProduct(article);
+    }
+  }, [article]);
+
+  const updateProduct = async (fields: ProductFormFields): Promise<void> => {
+    if (!article) return;
+
+    const response = await ProductApi.update({
+      article,
+      description: fields.description,
+      genres: fields.genres.split(','),
+      name: fields.name,
+      price: +fields.price,
+      publisher: fields.publisher,
+      releaseDate: dayjs(fields.releaseDate, 'DD.MM.YYYY').toISOString(),
+      requirements: fields.requirements.split(',').map(req => {
+        const [option, value] = req.split(':');
+        return { option, value };
+      }),
+    });
+
+    if (response.status === 'success') {
+      setProduct(response.data);
+    }
+  };
 
   const handleSubmit = async (fields: ProductFormFields): Promise<void> => {
+    if (article) {
+      updateProduct(fields);
+      return;
+    }
+
     const response = await ProductApi.createProduct({
       description: fields.description,
       genres: fields.genres.split(','),
@@ -192,9 +254,7 @@ export const NewProduct: FC = () => {
   return (
     <React.Fragment>
       <Headline>Добавить новый товар</Headline>
-      <Block>
-        <ProductForm onSubmit={handleSubmit} />
-      </Block>
+      <Block>{((article && product) || !article) && <ProductForm onSubmit={handleSubmit} product={product} />}</Block>
     </React.Fragment>
   );
 };

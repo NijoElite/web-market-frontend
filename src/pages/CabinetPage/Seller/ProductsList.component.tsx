@@ -64,6 +64,9 @@ export const ProductsList: FC = () => {
                 <div>
                   <Button onClick={(): Promise<void> => handleDeleteClick(product.article)}>Убрать</Button>
                 </div>
+                <Link to={`/cabinet/seller/add/${product.article}`}>
+                  <Button>Изменить</Button>
+                </Link>
               </TableCellStyled>
             </TableRow>
           );

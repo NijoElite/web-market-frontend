@@ -7,7 +7,7 @@ export interface Product {
   ownerId: string;
   description: string;
   price: number;
-  requirements: {
+  requirements?: {
     option: string;
     value: string;
   }[];
@@ -52,6 +52,11 @@ export interface GetStatisticResponse {
 }
 
 export interface RemoveFromSaleRespnose {
+  status: typeof RESPONSE_SUCCESS;
+  data: Product;
+}
+
+export interface UpdateProductResponse {
   status: typeof RESPONSE_SUCCESS;
   data: Product;
 }

@@ -8,6 +8,7 @@ import {
   GetOwnProductsResponse,
   GetStatisticResponse,
   RemoveFromSaleRespnose,
+  UpdateProductResponse,
 } from './types';
 
 interface GetProductParams {
@@ -23,6 +24,17 @@ interface GetStatisticParams {
 }
 
 interface CreateProductParams {
+  name: string;
+  description: string;
+  price: number;
+  requirements: { option: string; value: string }[];
+  publisher: string;
+  releaseDate: string;
+  genres: string[];
+}
+
+interface UpdateProductParams {
+  article: string;
   name: string;
   description: string;
   price: number;
@@ -78,6 +90,14 @@ export class ProductApi {
     return await call<RemoveFromSaleRespnose>(ProductApi.SERVICE_NAME, 'delete', {
       method: 'POST',
       params: [article],
+    });
+  }
+
+  static async update(params: UpdateProductParams): Promise<UpdateProductResponse | ErrorResponse> {
+    return await call<UpdateProductResponse>(ProductApi.SERVICE_NAME, 'edit', {
+      method: 'POST',
+      params: [params.article],
+      body: JSON.stringify({ ...params, token: localStorage.getItem('token') }),
     });
   }
 }
