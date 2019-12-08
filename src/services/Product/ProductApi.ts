@@ -1,9 +1,20 @@
 import { ErrorResponse } from '../types';
 
 import { call } from '../api';
-import { GetProductResponse, GetLatestResponse, CreateProductResponse, GetOwnProductsResponse } from './types';
+import {
+  GetProductResponse,
+  GetLatestResponse,
+  CreateProductResponse,
+  GetOwnProductsResponse,
+  GetStatisticResponse,
+  RemoveFromSaleRespnose,
+} from './types';
 
 interface GetProductParams {
+  article: string;
+}
+
+interface GetStatisticParams {
   article: string;
 }
 
@@ -44,6 +55,20 @@ export class ProductApi {
     return await call<GetOwnProductsResponse>(ProductApi.SERVICE_NAME, 'own', {
       method: 'GET',
       query: { token: localStorage.getItem('token') || '' },
+    });
+  }
+
+  static async getStatistic(params: GetStatisticParams): Promise<GetStatisticResponse | ErrorResponse> {
+    return await call<GetStatisticResponse>(ProductApi.SERVICE_NAME, 'stats', {
+      method: 'GET',
+      params: [params.article],
+    });
+  }
+
+  static async removeFromSale(article: string): Promise<RemoveFromSaleRespnose | ErrorResponse> {
+    return await call<RemoveFromSaleRespnose>(ProductApi.SERVICE_NAME, 'delete', {
+      method: 'POST',
+      params: [article],
     });
   }
 }

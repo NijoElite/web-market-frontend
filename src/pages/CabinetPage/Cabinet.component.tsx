@@ -7,6 +7,7 @@ import styled from '@emotion/styled/macro';
 import { Link, useRouteMatch, Switch, Route } from 'react-router-dom';
 import SellerCabinet from './Seller/SellerCabinet.component';
 import UserCabinet from './User/UserCabinet.component';
+import { StatsPage } from '../StatsPage/StatsPage.component';
 
 // #region styled
 const RolesPanel = styled.div`
@@ -71,6 +72,7 @@ const Cabinet: FC<Props> = ({ userId }) => {
       ) : (
         <Switch>
           <Route path={`${match.url}/seller`} component={SellerCabinet} />
+          <Route path={`${match.url}/stats/:article`} component={StatsPage} />
           <Route path={`${match.url}/`} exact component={UserCabinet} />}
         </Switch>
       )}

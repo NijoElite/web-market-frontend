@@ -16,7 +16,7 @@ export interface Product {
   releaseDate: string;
   sliderImage: string;
   defaultImage: string;
-  rating: number;
+  isOnSale: string;
   genres: string[];
 }
 
@@ -42,4 +42,25 @@ export interface GetOwnProductsResponse {
   data: Product[];
 }
 
-export type ProductResponse = GetProductResponse | GetLatestResponse | CreateProductResponse | GetOwnProductsResponse;
+export interface GetStatisticResponse {
+  status: typeof RESPONSE_SUCCESS;
+  data: {
+    totalQty: number;
+    totalCost: number;
+    paidQty: number;
+    paidCost: number;
+  };
+}
+
+export interface RemoveFromSaleRespnose {
+  status: typeof RESPONSE_SUCCESS;
+  data: Product;
+}
+
+export type ProductResponse =
+  | GetProductResponse
+  | GetLatestResponse
+  | CreateProductResponse
+  | GetOwnProductsResponse
+  | GetStatisticResponse
+  | RemoveFromSaleRespnose;

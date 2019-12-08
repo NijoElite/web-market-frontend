@@ -11,6 +11,7 @@ import LogoutPage from './pages/LogoutPage/LogoutPage.component';
 import GamePage from './pages/GamePage/GamePage.component';
 import CartPage from './pages/CartPage/CartPage.component';
 import Cabinet from './pages/CabinetPage/Cabinet.component';
+import { StatsPage } from './pages/StatsPage/StatsPage.component';
 
 export default class App extends Component {
   render(): React.ReactNode {

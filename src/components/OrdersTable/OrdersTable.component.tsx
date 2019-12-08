@@ -4,6 +4,7 @@ import { Currency } from '../Currency/Currency.component';
 import { Order, OrderItem } from '../../services/Order/types';
 import styled from '@emotion/styled/macro';
 import { Button } from '../Button/Button.component';
+import { Link } from 'react-router-dom';
 
 // #region styled
 const TableCellBold = styled(TableCell)`
