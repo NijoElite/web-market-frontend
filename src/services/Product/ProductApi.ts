@@ -16,6 +16,10 @@ interface GetProductParams {
 
 interface GetStatisticParams {
   article: string;
+  date: {
+    start: Date;
+    end: Date;
+  };
 }
 
 interface CreateProductParams {
@@ -62,6 +66,11 @@ export class ProductApi {
     return await call<GetStatisticResponse>(ProductApi.SERVICE_NAME, 'stats', {
       method: 'GET',
       params: [params.article],
+      query: {
+        token: localStorage.getItem('token') || '',
+        startDate: params.date.start.toISOString(),
+        endDate: params.date.end.toISOString(),
+      },
     });
   }
 

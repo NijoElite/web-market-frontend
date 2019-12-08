@@ -1,5 +1,4 @@
 import { RESPONSE_SUCCESS } from '../types';
-import { User } from '../User/types';
 
 export interface Product {
   article: string;

@@ -5,6 +5,7 @@ import { Link, useRouteMatch, Switch, Route } from 'react-router-dom';
 import { SellerOrders } from './SellerOrders.component';
 import { NewProduct } from './NewProduct.component';
 import { ProductsList } from './ProductsList.component';
+import { SellerStats } from './SellerStats.component';
 
 export const SellerCabinet: FC = () => {
   const match = useRouteMatch();
@@ -21,6 +22,9 @@ export const SellerCabinet: FC = () => {
         <Link to="/cabinet/seller/products">
           <Button>Мои товары</Button>
         </Link>
+        <Link to="/cabinet/seller/stats">
+          <Button>Статистика</Button>
+        </Link>
       </ActionsBlockStyled>
 
       {match && (
@@ -28,6 +32,7 @@ export const SellerCabinet: FC = () => {
           <Route exact path={`${match.url}/`} component={SellerOrders} />
           <Route exact path={`${match.url}/add`} component={NewProduct} />
           <Route exact path={`${match.url}/products`} component={ProductsList} />
+          <Route exact path={`${match.url}/stats`} component={SellerStats} />
         </Switch>
       )}
     </React.Fragment>

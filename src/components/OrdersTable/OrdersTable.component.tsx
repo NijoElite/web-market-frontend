@@ -32,7 +32,7 @@ const OrderItemRow: FC<OrderItemRowProps> = ({ item, isSeller, onChangeStatusCli
   return (
     <TableRow>
       <TableCell description="Артикул">{item.article}</TableCell>
-      {!isSeller && <TableCell description="Продавец">{item.seller}</TableCell>}
+      {!isSeller && <TableCell description="Продавец">{item.seller.email}</TableCell>}
       <TableCell description="Цена">
         {item.price}
         <Currency type="rub" />
@@ -55,7 +55,7 @@ const OrderCells: FC<{ order: Order; isSeller: boolean }> = ({ order, isSeller }
     <React.Fragment>
       <TableCellBold description="Дата заказа">{new Date(order.createdAt).toLocaleDateString()}</TableCellBold>
       <TableCellBold description="Кол-во">{order.items.length}</TableCellBold>
-      {isSeller && <TableCellBold description="Покупатель">{order.customer}</TableCellBold>}
+      {isSeller && <TableCellBold description="Покупатель">{order.customer.email}</TableCellBold>}
       <TableCellBold description="Итог">
         {order.items.reduce((totalCost, item) => totalCost + item.qty * item.price, 0)}
         <Currency type="rub" />
