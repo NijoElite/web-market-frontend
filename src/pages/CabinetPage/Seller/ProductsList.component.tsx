@@ -49,7 +49,9 @@ export const ProductsList: FC = () => {
         {products.map(product => {
           return (
             <TableRow>
-              <TableCell description="Название">{product.name}</TableCell>
+              <TableCell description="Название">
+                <Link to={`/catalog/${product.article}`}>{product.name}</Link>
+              </TableCell>
               <TableCell description="Артикул">{product.article}</TableCell>
               <TableCell description="Цена">
                 {product.price}
