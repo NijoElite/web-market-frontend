@@ -2,7 +2,9 @@ import { Catalog } from '../../components/Catalog/Catalog.component';
 import { Container } from '../../components/Container/Container.component';
 import { Carousel } from '../../components/Carousel/Carousel.component';
 import styled from '@emotion/styled/macro';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
+import { Product } from '../../services/Product/types';
+import { ProductApi } from '../../services/Product/ProductApi';
 
 const CarouselStyled = styled(Carousel)`
   width: 100%;
@@ -20,16 +22,31 @@ const Background = styled('div')<{ imgUrl: string }>`
 `;
 
 export const MainPage: FC = () => {
-  const items = mockCarousel.map(el => {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async (): Promise<void> => {
+      const response = await ProductApi.getLatest();
+
+      if (response.status === 'success') {
+        setProducts(response.data);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const carouselItems = products.map(product => {
+    console.log('/' + product.sliderImage);
     return {
-      item: <div>gg</div>,
-      background: <Background imgUrl={el} />,
+      item: <div></div>,
+      background: <Background imgUrl={'/' + product.sliderImage} />,
     };
   });
 
   return (
     <React.Fragment>
-      <CarouselStyled items={items} options={{ delay: 8500 }} />
+      <CarouselStyled items={carouselItems} options={{ delay: 8500 }} />
       <Container>
         <Catalog />
       </Container>
