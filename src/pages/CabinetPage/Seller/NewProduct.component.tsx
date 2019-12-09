@@ -18,6 +18,15 @@ const FormStyled = styled.form`
   padding: 25px 15px;
 `;
 
+const FileInput = styled.div`
+  margin-bottom: 35px;
+  display: flex;
+
+  > label {
+    flex-basis: 250px;
+  }
+`;
+
 interface ProductFormFields {
   name: string;
   description: string;
@@ -145,8 +154,14 @@ const ProductForm: FC<ProductFormProps> = ({ onSubmit, product }) => {
         isValid={!formik.errors.name}
         errorMessage={formik.errors.name}
       />
-      <input id="sliderImage" name="sliderImage" type="file" onChange={handleFileInputChange} />
-      <input id="defaultImage" name="defaultImage" type="file" onChange={handleFileInputChange} />
+      <FileInput>
+        <label htmlFor="sliderImage">Изображение слайдера</label>
+        <input id="sliderImage" name="sliderImage" type="file" onChange={handleFileInputChange} />
+      </FileInput>
+      <FileInput>
+        <label htmlFor="defaultImage">Превью</label>
+        <input id="defaultImage" name="defaultImage" type="file" onChange={handleFileInputChange} />
+      </FileInput>
       <Input
         id="price"
         name="price"
