@@ -15,7 +15,7 @@ export interface Product {
   releaseDate: string;
   sliderImage: string;
   defaultImage: string;
-  isOnSale: string;
+  isOnSale: boolean;
   genres: string[];
 }
 

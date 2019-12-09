@@ -90,10 +90,11 @@ export class ProductApi {
     });
   }
 
-  static async removeFromSale(article: string): Promise<RemoveFromSaleRespnose | ErrorResponse> {
-    return await call<RemoveFromSaleRespnose>(ProductApi.SERVICE_NAME, 'delete', {
+  static async setSaleStatus(article: string, status: boolean): Promise<RemoveFromSaleRespnose | ErrorResponse> {
+    return await call<RemoveFromSaleRespnose>(ProductApi.SERVICE_NAME, 'sale', {
       method: 'POST',
       params: [article],
+      body: JSON.stringify({ status }),
     });
   }
 

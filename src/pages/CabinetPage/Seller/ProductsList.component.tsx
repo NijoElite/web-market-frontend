@@ -33,11 +33,11 @@ export const ProductsList: FC = () => {
     fetchProducts();
   }, []);
 
-  const handleDeleteClick = async (article: string): Promise<void> => {
-    const response = await ProductApi.removeFromSale(article);
+  const handleSaleStatusClick = async (product: Product): Promise<void> => {
+    const response = await ProductApi.setSaleStatus(product.article, !product.isOnSale);
 
     if (response.status === 'success') {
-      const updatedProducts = products.map(product => (product.article === article ? response.data : product));
+      const updatedProducts = products.map(elem => (elem.article === product.article ? response.data : elem));
       setProducts(updatedProducts);
     }
   };
@@ -58,13 +58,15 @@ export const ProductsList: FC = () => {
                 <Currency type="rub" />
               </TableCell>
               <TableCell description="Издатель">{product.publisher}</TableCell>
-              <TableCell description="В продаже">{product.isOnSale === 'true' ? 'Да' : 'Нет'}</TableCell>
+              <TableCell description="В продаже">{product.isOnSale ? 'Да' : 'Нет'}</TableCell>
               <TableCellStyled>
                 <Link to={`/cabinet/stats/${product.article}`}>
                   <Button>Статистика</Button>
                 </Link>
                 <div>
-                  <Button onClick={(): Promise<void> => handleDeleteClick(product.article)}>Убрать</Button>
+                  <Button onClick={(): Promise<void> => handleSaleStatusClick(product)}>
+                    {product.isOnSale ? 'Убрать' : 'Вернуть'}
+                  </Button>
                 </div>
                 <Link to={`/cabinet/seller/add/${product.article}`}>
                   <Button>Изменить</Button>
